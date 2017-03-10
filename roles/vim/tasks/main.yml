@@ -1,0 +1,29 @@
+# Installation
+- include: debian.yml
+  when: ansible_os_family == "Debian"
+- include: arch.yml
+  when: ansible_os_family == "Archlinux"
+
+# Plugin manager
+- name: Makes sure autoload directory exists
+  file: path="{{dotfiles_user_home}}/.vim/autoload" state=directory
+
+# Configuration
+- name: Check if vimrc exists
+  stat: path="{{dotfiles_user_home}}/.vimrc"
+  register: vimrc_stat
+  failed_when: False
+
+- name: Remove vimrc
+  file: path="{{dotfiles_user_home}}/.vimrc" state=absent
+  when: vimrc_stat.stat.exists and not vimrc_stat.stat.islnk
+
+- name: Symlink vimrc
+  file:
+    src: "{{ dotfiles_home }}/roles/vim/files/vimrc"
+    dest: "{{dotfiles_user_home}}/.vimrc"
+    state: link
+
+- name: Install plugins
+  command: vim +PlugInstall +qall
+  when: vim_install_plugins

@@ -1,0 +1,8 @@
+- name: Install i3
+  pacman: name=imagemagick state=latest
+
+- name: Install dmenu
+  pacman: name=dmenu state=latest
+
+  #- name: Install font
+  #packer: name=ttf-hack-powerline-git state=present

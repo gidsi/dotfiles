@@ -1,0 +1,29 @@
+#!/bin/bash
+
+PICTURE_PATH=~/.dotfiles/roles/i3/screenlock/pictures
+RANDOM_IMAGE=$PICTURE_PATH/$(ls $PICTURE_PATH | shuf -n 1)
+screencapturelock() {
+  cd /tmp
+  scrot lock.png
+  convert lock.png -blur 5x5 lock.png
+  composite ~/.dotfiles/roles/i3/screenlock/chaospott.png lock.png lock.png
+  #frosted -b 5 -s 5 lock.png lock.png
+  i3lock -uef -i lock.png
+  rm lock.png
+}
+
+resizepicturelock() {
+  cd /tmp
+  convert $PICTURE_PATH/$(ls $PICTURE_PATH | shuf -n 1) -resize 1366x1366 -gravity Center -crop 1366x768 lock.png
+  i3lock -uef -i lock.png
+}
+
+case "$1" in
+  picture)
+    resizepicturelock
+    ;;
+  *)
+    i3lock -uef -i ~/.dotfiles/roles/i3/screenlock/pictures/$(ls ~/.dotfiles/roles/i3/screenlock/pictures | shuf -n 1)
+esac
+
+exit 0

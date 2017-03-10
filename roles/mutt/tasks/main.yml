@@ -1,0 +1,13 @@
+- include: arch.yml
+  when: ansible_os_family == "Archlinux"
+- include: debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Create mutt config
+  template:
+    src: "mutt.j2"
+    dest: "{{dotfiles_user_home}}/.mutt_{item.key}"
+  with_items:
+      emails
+      
+

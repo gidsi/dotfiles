@@ -1,0 +1,19 @@
+- name: Collecting Facts
+  hosts: zero scraps
+  gather_facts: yes
+
+- name: Set up local environment
+  hosts: zero scraps
+  vars_files:
+      - 'vars/vault.yml'
+      - 'vars/vars.yml'
+      - 'vars/git_private.yml'
+  roles:
+    - git
+    - {role: package_manager, tags: ['bootstrap']}
+    - {role: zsh, tags: ['bootstrap']}
+      # - i3
+    - vim
+    - ag
+      #- mutt
+    - cloc

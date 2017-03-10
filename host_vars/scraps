@@ -1,0 +1,2 @@
+wlan_device: "wlp3s0"
+batteries: [ '/sys/class/power_supply/BAT0/uevent', '/sys/class/power_supply/BAT1/uevent' ]

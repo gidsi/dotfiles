@@ -1,0 +1,86 @@
+general {
+  colors = true
+  interval = 5
+  output_format = "i3bar"
+}
+
+order += "spaceapi"
+order += "mpd_status"
+order += "wireless {{ wlan_device }}"
+{% for key, email in emails %}
+order += "imap {{ key }}"
+
+{% endfor %}
+{% for battery in batteries %}
+order += "battery {{ loop.index0 }}"
+
+{% endfor %}
+order += "disk /"
+order += "load"
+order += "tztime local"
+order += "ddate"
+order += "volume master"
+
+spaceapi {
+  closed_color = "#ff7070"
+}
+
+{% for key, email in emails %}
+imap {{ key }}{
+  format = '{{ key }}: {unseen}'
+  hide_if_zero = true
+  imap_server = "{{ email.imap }}"
+  user = "{{ email.login }}"
+  password = "{{ email.password }}"
+  on_click 1 = "exec urxvt -e mutt -F ~/.mutt_{{ key }}"
+}
+
+{% endfor %}
+
+wireless {{ wlan_device }} {
+  format_up = "%essid" #%bitrate %quality "
+  format_down = " down"
+}
+
+mpd_status {
+  host = "mpd.chaospott.de"
+}
+
+{% for battery in batteries %}
+battery {{ loop.index0 }} {
+  last_full_capacity = true
+  integer_battery_capacity = true
+  threshold_type = "time"
+  low_threshold = 60
+  format = "%status%percentage %remaining %consumption"
+  path = "{{ battery }}"
+}
+{% endfor %}
+
+tztime local {
+  format = "%Y-%m-%d %H:%M"
+}
+
+load {
+  format = "%1min"
+}
+
+cpu_usage {
+  format = "%usage"
+}
+
+disk "/" {
+  format = "%avail"
+}
+
+volume master {
+  format = "♪%volume"
+  format_muted = "  "
+  device = "default"
+  mixer = "Master"
+  mixer_idx = 0
+}
+
+ddate {
+  format = "☯%a,%b %d,%Y%N(%H)"
+}

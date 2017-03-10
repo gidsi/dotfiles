@@ -1,0 +1,26 @@
+- include: arch.yml
+  when: ansible_os_family == "Archlinux"
+
+- name: Ensure there is a ~/.config/i3 folder
+  file: path={{ dotfiles_user_home }}/.config/i3
+- name: Copy i3 config
+  template:
+    src: "{{ dotfiles_home }}/roles/i3/templates/i3config.j2"
+    dest: "{{ dotfiles_user_home }}/.config/i3/config"
+
+- name: Create i3status
+  template:
+    src: "{{ dotfiles_home }}/roles/i3/templates/i3status.j2"
+    dest: "{{ dotfiles_user_home }}/.i3status.conf"
+
+- name: Link dircolors
+  file:
+    src: "{{ dotfiles_home }}/roles/i3/files/dircolors"
+    dest: "{{ dotfiles_user_home }}/.dircolors" 
+    state: link
+
+- name: Link Xresources
+  file:
+    src: "{{ dotfiles_home }}/roles/i3/files/Xresources"
+    dest: "{{ dotfiles_user_home }}/.Xresources"
+    state: link
