@@ -4,7 +4,7 @@ set realname = "{{ item.name }}"
 set imap_user = "{{ item.login }}"
 set imap_pass = "{{ item.password }}"
 
-set folder = "{{ item.imap }}"
+set folder = "imaps://{{ item.imap }}:993"
 set spoolfile = "+INBOX"
 set imap_check_subscribed
 
@@ -14,7 +14,7 @@ set message_cachedir =~/.mutt/cache/{{ item.id }}/bodies
 set certificate_file =~/.mutt/{{ item.id }}_certificates
 
 # SMTP SETTINGS
-set smtp_url = "{{ item.smtp }}"
+set smtp_url = "smtp://{{ item.smtp }}:587"
 set smtp_pass = "{{ item.password }}"
 set ssl_force_tls = yes
 set ssl_starttls = yes
