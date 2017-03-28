@@ -7,8 +7,8 @@ general {
 order += "spaceapi"
 order += "mpd_status"
 order += "wireless {{ wlan_device }}"
-{% for key, email in emails %}
-order += "imap {{ key }}"
+{% for email in emails %}
+order += "imap {{ email.id }}"
 
 {% endfor %}
 {% for battery in batteries %}
@@ -25,14 +25,14 @@ spaceapi {
   closed_color = "#ff7070"
 }
 
-{% for key, email in emails %}
-imap {{ key }}{
-  format = '{{ key }}: {unseen}'
+{% for email in emails %}
+imap {{ email.id }}{
+  format = '{{ email.id }}: {unseen}'
   hide_if_zero = true
   imap_server = "{{ email.imap }}"
   user = "{{ email.login }}"
   password = "{{ email.password }}"
-  on_click 1 = "exec urxvt -e mutt -F ~/.mutt_{{ key }}"
+  on_click 1 = "exec urxvt -e mutt -F ~/.mutt_{{ email.id }}"
 }
 
 {% endfor %}

@@ -9,9 +9,9 @@ set spoolfile = "+INBOX"
 set imap_check_subscribed
 
 # LOCAL FOLDERS FOR CACHED HEADERS AND CERTIFICATES
-set header_cache =~/.mutt/cache/{{ item.key }}/headers
-set message_cachedir =~/.mutt/cache/{{ item.key }}/bodies
-set certificate_file =~/.mutt/{{ item.key }}_certificates
+set header_cache =~/.mutt/cache/{{ item.id }}/headers
+set message_cachedir =~/.mutt/cache/{{ item.id }}/bodies
+set certificate_file =~/.mutt/{{ item.id }}_certificates
 
 # SMTP SETTINGS
 set smtp_url = "{{ item.smtp }}"

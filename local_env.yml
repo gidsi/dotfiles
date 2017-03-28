@@ -12,8 +12,8 @@
     - git
     - {role: package_manager, tags: ['bootstrap']}
     - {role: zsh, tags: ['bootstrap']}
-      # - i3
+    - i3
     - vim
     - ag
-      #- mutt
+    - mutt
     - cloc

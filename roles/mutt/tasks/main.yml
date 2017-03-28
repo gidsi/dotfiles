@@ -6,8 +6,8 @@
 - name: Create mutt config
   template:
     src: "mutt.j2"
-    dest: "{{dotfiles_user_home}}/.mutt_{item.key}"
-  with_items:
-      emails
+    dest: "{{dotfiles_user_home}}/.mutt_{{item.id}}"
+  with_items: "{{ emails }}"
+
       
 
