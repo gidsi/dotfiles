@@ -1,3 +1,0 @@
-wlan_device: "wlp3s0"
-batteries: [ '/sys/class/power_supply/BAT0/uevent' ]
-keyboard_layout: "de"

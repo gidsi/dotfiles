@@ -1,9 +1,9 @@
 - name: Collecting Facts
-  hosts: zero scraps
+  hosts: zero scraps betelgeuse
   gather_facts: yes
 
 - name: Set up local environment
-  hosts: zero scraps
+  hosts: zero scraps betelgeuse
   vars_files:
       - 'vars/vault.yml'
       - 'vars/vars.yml'
@@ -17,3 +17,4 @@
     - ag
     - mutt
     - cloc
+    - irssi

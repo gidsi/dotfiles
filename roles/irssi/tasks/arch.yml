@@ -1,0 +1,3 @@
+- name: Install irssi with pacman
+  pacman: name=irssi state=present
+  become_method: sudo
