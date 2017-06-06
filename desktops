@@ -2,6 +2,7 @@
 zero
 scraps
 betelgeuse
+hengst
 
 [desktop:vars]
 ansible_connection=local
