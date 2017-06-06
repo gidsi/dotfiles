@@ -22,14 +22,14 @@ order += "ddate"
 order += "volume master"
 
 spaceapi {
-  closed_color = "#ff7070"
+  color_closed = "#ff7070"
 }
 
 {% for email in emails %}
 imap {{ email.id }}{
   format = '{{ email.id }}: {unseen}'
   hide_if_zero = true
-  imap_server = "{{ email.imap }}"
+  server = "{{ email.imap }}"
   user = "{{ email.login }}"
   password = "{{ email.password }}"
   on_click 1 = "exec urxvt -e mutt -F ~/.mutt_{{ email.id }}"
