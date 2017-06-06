@@ -2,6 +2,9 @@
 
 PICTURE_PATH=~/.dotfiles/roles/i3/screenlock/pictures
 RANDOM_IMAGE=$PICTURE_PATH/$(ls $PICTURE_PATH | shuf -n 1)
+RESOLUTION=$(xrandr -q | awk -F'current' -F',' 'NR==1 {gsub("( |current)","");print $2}')
+RES_MAX=$(expr match $RESOLUTION '\(.[0-9]*\)')
+
 screencapturelock() {
   cd /tmp
   scrot lock.png
@@ -14,7 +17,7 @@ screencapturelock() {
 
 resizepicturelock() {
   cd /tmp
-  convert $PICTURE_PATH/$(ls $PICTURE_PATH | shuf -n 1) -resize 1366x1366 -gravity Center -crop 1366x768 lock.png
+  convert $PICTURE_PATH/$(ls $PICTURE_PATH | shuf -n 1) -resize $RES_MAXx$RES_MAX -gravity Center -crop $RESOLUTION lock.png
   i3lock -uef -i lock.png
 }
 
@@ -23,7 +26,7 @@ case "$1" in
     resizepicturelock
     ;;
   *)
-    i3lock -uef -i ~/.dotfiles/roles/i3/screenlock/pictures/$(ls ~/.dotfiles/roles/i3/screenlock/pictures | shuf -n 1)
+    i3lock -uef -i $PICTURE_PATH/$(ls $PICTURE_PATH | shuf -n 1)
 esac
 
 exit 0
