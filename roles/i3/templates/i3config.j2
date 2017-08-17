@@ -148,6 +148,9 @@ bar {
 }
 
 
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pactl list sinks short | grep "RUNNING" | head -c 1) -5%
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl list sinks short | grep "RUNNING" | head -c 1) +5%
+
 bindsym $mod+End exec ~/.dotfiles/roles/i3/screenlock/screenlock picture
 
 exec xrdb -merge ~/.Xresources
