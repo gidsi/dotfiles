@@ -7,5 +7,18 @@
 - name: Install i3status
   pacman: name=i3status state=latest
 
-  #- name: Install font
-  #packer: name=ttf-hack-powerline-git state=present
+- name: Install compton
+  pacman: name=compton state=latest
+
+- name: Install feh
+  pacman: name=feh state=latest
+
+- name: Install unclutter
+  aur: name=unclutter-xfixes-git state=present
+  become: yes
+  when: aur_installed
+
+- name: Install unclutter
+  aur: name=ttf-hack-powerline-git state=present
+  become: yes
+  when: aur_installed

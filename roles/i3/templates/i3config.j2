@@ -154,6 +154,10 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl list sinks short
 bindsym $mod+End exec ~/.dotfiles/roles/i3/screenlock/screenlock picture
 
 exec xrdb -merge ~/.Xresources
+exec compton
+exec feh --bg-fill ~/.dotfiles/roles/i3/screenlock/pictures/normal/cyberpunkcity2.png
+exec unclutter
+
 {% if keyboard_layout is defined %}
 exec setxkbmap {{ keyboard_layout }}
 {% endif %}
