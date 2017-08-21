@@ -18,7 +18,12 @@
   become: yes
   when: aur_installed
 
-- name: Install unclutter
+- name: Install ttf-powerline
   aur: name=ttf-hack-powerline-git state=present
+  become: yes
+  when: aur_installed
+
+- name: Install clipster
+  aur: name=clipster-git state=present
   become: yes
   when: aur_installed

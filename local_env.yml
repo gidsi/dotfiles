@@ -11,7 +11,7 @@
   roles:
     - git
     - {role: package_manager, tags: ['bootstrap']}
-    - {role: zsh, tags: ['bootstrap']}
+    - zsh
     - i3
     - vim
     - ag

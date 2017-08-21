@@ -153,10 +153,13 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl list sinks short
 
 bindsym $mod+End exec ~/.dotfiles/roles/i3/screenlock/screenlock picture
 
+bindsym $mod+c exec clipster -sp
+
 exec xrdb -merge ~/.Xresources
 exec compton
 exec feh --bg-fill ~/.dotfiles/roles/i3/screenlock/pictures/normal/cyberpunkcity2.png
 exec unclutter
+exec --no-startup-id clipster -d
 
 {% if keyboard_layout is defined %}
 exec setxkbmap {{ keyboard_layout }}

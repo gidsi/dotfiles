@@ -234,7 +234,6 @@ call vundle#rc()
 " :BundleSearch(!) foo - search(or refresh cache first) for foo
 " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
 
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'chriskempson/base16-vim'
 Plugin 'jiangmiao/auto-pairs'
@@ -271,12 +270,6 @@ let NERDTreeQuitOnOpen=1
 " let NERDTree be toggled by E
 map <S-e> :NERDTreeToggle<CR>
 
-" recommended syntastic options
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"let g:syntastic_python_flake8_args = "--ignore=E501,W0611,W0401"
-
 let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
@@ -285,12 +278,8 @@ let g:syntastic_check_on_wq = 0
 " Gundo
 nnoremap <F5> :GundoToggle<CR>
 
-" solarized
-"let g:solarized_termcolors=256
-"colorscheme solarized 
-set background=dark
-"let base16colorspace=256
-colorscheme base16-monokai
+"theme
+colorscheme base16-atelier-cave
 
 "" plugin python-mode configuration
 let pymode_lint_onfly = 1

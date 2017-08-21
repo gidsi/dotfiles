@@ -1,3 +1,3 @@
 - name: Install vim 
-  pacman: name=vim state=present
-  become_method: sudo
+  pacman: name=gvim state=present
+  become: yes
