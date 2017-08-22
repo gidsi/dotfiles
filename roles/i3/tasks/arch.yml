@@ -14,16 +14,16 @@
   pacman: name=feh state=latest
 
 - name: Install unclutter
-  aur: name=unclutter-xfixes-git state=present
+  aur: name=unclutter-xfixes-git user=gidsi dir=/tmp
   become: yes
   when: aur_installed
 
 - name: Install ttf-powerline
-  aur: name=ttf-hack-powerline-git state=present
+  aur: name=ttf-hack-powerline-git user=gidsi dir=/tmp
   become: yes
   when: aur_installed
 
 - name: Install clipster
-  aur: name=clipster-git state=present
+  aur: name=clipster-git user=gidsi dir=/tmp
   become: yes
   when: aur_installed

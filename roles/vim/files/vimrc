@@ -7,7 +7,7 @@
 set nocompatible
 
 "" set history size
-set history=1000		
+set history=1000
 set tabpagemax=50
 set undolevels=10000
 set undoreload=10000
@@ -15,9 +15,9 @@ set undodir=~/.vim/undo
 set undofile
 set backupdir=~/.vim/backup
 
-"" save: 
+"" save:
 "  - for 100 files
-"  - buffer info will be saved, 
+"  - buffer info will be saved,
 "  - registers over 100Kbyte will be skipped,
 "  - 1000 lines per register will be remembered,
 "  - don't save highlighted searches,
@@ -38,7 +38,7 @@ let g:mapleader = "\<Space>"
 " vmap: mapping in visual and select mode
 " .noremap: don't follow another remapping, execute the given command
 " see :help map-modes
- 
+
 " really really save
 cmap w!! w !sudo tee %
 
@@ -286,5 +286,8 @@ let pymode_lint_onfly = 1
 let pymode_lint_checker = "pylint,pyflakes,pep8,mccabe"
 let pymode_lint_hold = 0
 let pymode_lint_jump = 0
+
+set list
+set listchars=eol:⏎,tab:>-,trail:␠,nbsp:⎵
 
 " vim:set ft=vim et sw=2:
