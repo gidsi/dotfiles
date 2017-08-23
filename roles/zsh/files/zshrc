@@ -21,7 +21,7 @@ source $ZSH/oh-my-zsh.sh
 #aliases
 alias ls="ls --color=auto"
 alias vi=vim
+alias fehg="feh -g 1920x1080 -d -S filename "
 
 #ls colors
 eval $(dircolors -b .dircolors)
-

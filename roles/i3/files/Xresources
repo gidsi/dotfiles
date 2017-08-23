@@ -11,7 +11,7 @@ URxvt*depth: 32
 ! URxvt*geometry: geom
 
 ! Use the specified colour as the windows background colour [default White]; option -bg.
-URxvt*background: [75]#000000
+URxvt*background: [90]#190226
 
 ! Use the specified colour as the windows foreground colour [default Black]; option -fg.
     URxvt*foreground: White
