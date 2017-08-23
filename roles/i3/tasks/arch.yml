@@ -7,6 +7,10 @@
 - name: Install i3status
   pacman: name=i3status state=latest
 
+- name: Install rxvt-unicode
+  pacman: name=rxvt-unicode state=latest
+  become: true
+
 - name: Install compton
   pacman: name=compton state=latest
 
@@ -25,5 +29,10 @@
 
 - name: Install clipster
   aur: name=clipster-git user=gidsi dir=/tmp
+  become: yes
+  when: aur_installed
+
+- name: Install resize fontsize for urxvt
+  aur: name=urxvt-resize-font-git user=gidsi dir=/tmp
   become: yes
   when: aur_installed

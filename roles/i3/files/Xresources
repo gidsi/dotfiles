@@ -248,12 +248,15 @@ URxvt*secondaryScroll: false
 ! needs: urxvt-perls
 ! usage of tabbed: Shift-down for new, Shift-left/right: go to, Ctrl-left/right: move to
 ! ,tabbed,clipboard,url-select
-URxvt.perl-ext-common: default,matcher
+URxvt.perl-ext-common: default,matcher,resize-font
 URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
 URxvt.keysym.C-Delete: perl:matcher:last
 URxvt.keysym.M-Delete: perl:matcher:list
 URxvt.matcher.rend.0: Uline Bold fg5
+
+URxvt.resize-font.smaller: C-Down
+URxvt.resize-font.bigger: C-Up
 
 /* URxvt.tabbed.tabbar-fg: 2 */
 /* URxvt.tabbed.tabbar-bg: 0 */
