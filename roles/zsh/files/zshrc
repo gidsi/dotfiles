@@ -8,7 +8,7 @@ COMPLETION_WAITING_DOTS="true"
 
 ZSH_CUSTOM=$HOME/roles/zsh/custom
 
-plugins=(archlinux git docker docker-compose yarn)
+plugins=(archlinux docker docker-compose git thefuck yarn)
 
 # User configuration
 
