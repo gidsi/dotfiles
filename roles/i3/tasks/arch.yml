@@ -22,6 +22,15 @@
   pacman: name=feh state=latest
   become_method: sudo
 
+- name: Install scrot
+  pacman: name=scrot state=latest
+  become_method: sudo
+
+- name: Create screenshot folder
+  file:
+      path: ~/screenshots
+      state: directory
+
 - name: Install unclutter
   aur: name=unclutter-xfixes-git user=gidsi dir=/tmp
   become: yes

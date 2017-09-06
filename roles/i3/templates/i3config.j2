@@ -166,6 +166,9 @@ bindsym $mod+End exec ~/.dotfiles/roles/i3/screenlock/screenlock picture
 
 bindsym $mod+c exec clipster -sp
 
+bindsym --release $mod+Print exec scrot ~/screenshots/%Y-%m-%d-%T.png -u
+bindsym --release $mod+Shift+Print exec scrot ~/screenshots/%Y-%m-%d-%T.png
+
 exec xrdb -merge ~/.Xresources
 exec compton
 exec feh --bg-fill ~/.dotfiles/roles/i3/screenlock/pictures/normal/tank-girl.jpg
