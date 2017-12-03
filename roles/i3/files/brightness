@@ -1,0 +1,25 @@
+#!/bin/bash
+
+brightness=$(xbacklight -get)
+
+brightness=$(printf "%.0f\n" $brightness)
+
+if [[ $1 = "-" ]]; then
+  if [[ $brightness = "100" ]]; then
+    brightness=64
+  else
+    brightness=$(($brightness/2))
+  fi
+else
+  brightness=$(($brightness*2))
+fi
+
+if [[ brightness -lt "1" ]]; then
+  brightness=1
+fi
+
+if [[ $brightness -gt "100" ]]; then
+  brightness=100
+fi
+
+xbacklight -set $brightness
