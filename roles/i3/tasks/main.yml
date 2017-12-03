@@ -1,4 +1,4 @@
-- include: arch.yml
+- include_tasks: arch.yml
   when: ansible_os_family == "Archlinux"
 
 - name: Ensure there is a ~/.config/i3 folder

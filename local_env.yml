@@ -1,13 +1,9 @@
 - name: Collecting Facts
-  hosts: zero scraps betelgeuse hengst
+  hosts: desktop
   gather_facts: yes
 
 - name: Set up local environment
-  hosts: zero scraps betelgeuse hengst
-  vars_files:
-      - 'vars/vault.yml'
-      - 'vars/vars.yml'
-      - 'vars/git_private.yml'
+  hosts: desktop
   roles:
     - git
     - {role: package_manager, tags: ['bootstrap']}
