@@ -30,3 +30,10 @@
     src: "{{ dotfiles_home }}/roles/i3/files/zlogin"
     dest: "{{ dotfiles_user_home }}/.zlogin"
     state: link
+
+- name: Copy brightness script
+  copy:
+    src: "{{ dotfiles_home }}/roles/i3/files/brightness"
+    dest: "/usr/local/bin/brightness"
+    mode: 0755
+  become: true
