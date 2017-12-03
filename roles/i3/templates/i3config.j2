@@ -171,12 +171,12 @@ bindsym $mod+c exec clipster -sp
 bindsym --release $mod+Print exec scrot ~/screenshots/%Y-%m-%d-%T.png -u
 bindsym --release $mod+Shift+Print exec scrot ~/screenshots/%Y-%m-%d-%T.png
 
-exec xrdb -merge ~/.Xresources
-exec compton
-exec feh --bg-fill ~/.dotfiles/roles/i3/screenlock/pictures/normal/tank-girl.jpg
-exec unclutter
+exec --no-startup-id xrdb -merge ~/.Xresources
+exec --no-startup-id compton
+exec --no-startup-id feh --bg-fill ~/.dotfiles/roles/i3/screenlock/pictures/normal/tank-girl.jpg
+exec --no-startup-id unclutter
 exec --no-startup-id clipster -d
 
 {% if keyboard_layout is defined %}
-exec setxkbmap {{ keyboard_layout }}
+exec --np-startup-id setxkbmap {{ keyboard_layout }}
 {% endif %}
