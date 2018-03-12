@@ -30,3 +30,9 @@
     src: "{{ dotfiles_home }}/roles/i3/files/zlogin"
     dest: "{{ dotfiles_user_home }}/.zlogin"
     state: link
+
+- name: Linx xinit
+  file:
+    src: "{{ dotfiles_home }}/roles/i3/files/xinitrc"
+    dest: "{{ dotfiles_user_home }}/.xinitrc"
+    state: link
