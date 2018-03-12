@@ -1,52 +1,27 @@
-- name: Install i3
-  pacman: name=imagemagick state=latest
-  become_method: sudo
-
-- name: Install rofi
-  pacman: name=rofi state=latest
-  become_method: sudo
-
-- name: Install i3status
-  pacman: name=i3status state=latest
-  become_method: sudo
-
-- name: Install rxvt-unicode
-  pacman: name=rxvt-unicode state=latest
-  become_method: sudo
-
-- name: Install compton
-  pacman: name=compton state=latest
-  become_method: sudo
-
-- name: Install feh
-  pacman: name=feh state=latest
-  become_method: sudo
-
-- name: Install scrot
-  pacman: name=scrot state=latest
-  become_method: sudo
+- name: Install packages
+  pacman: name={{ item }} state=latest
+  become: true
+  with_items:
+    - i3-wm
+    - imagemagick
+    - rofi
+    - i3status
+    - rxvt-unicode
+    - compton
+    - feh
+    - scrot
+    - ttf-font-awesome
 
 - name: Create screenshot folder
   file:
       path: ~/screenshots
       state: directory
 
-- name: Install unclutter
-  aur: name=unclutter-xfixes-git user=gidsi dir=/tmp
-  become: yes
-  when: aur_installed
-
-- name: Install ttf-powerline
-  aur: name=ttf-hack-powerline-git user=gidsi dir=/tmp
-  become: yes
-  when: aur_installed
-
-- name: Install clipster
-  aur: name=clipster-git user=gidsi dir=/tmp
-  become: yes
-  when: aur_installed
-
-- name: Install resize fontsize for urxvt
-  aur: name=urxvt-resize-font-git user=gidsi dir=/tmp
-  become: yes
-  when: aur_installed
+- name: Install from aur
+  aur: name={{ item }} user=gidsi dir=/tmp
+  become: true
+  with_items:
+    - unclutter-xfixes-git
+    - ttf-hack-powerline-git
+    - clipster-git
+    - urxvt-resize-font-git

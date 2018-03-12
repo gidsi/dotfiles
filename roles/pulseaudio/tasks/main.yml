@@ -1,0 +1,6 @@
+- name: Install pulseaudio
+  pacman: name={{ item }} state=latest
+  become: true
+  with_items:
+    - pulseaudio
+    - pavucontrol

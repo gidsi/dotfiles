@@ -3,6 +3,7 @@ zero
 scraps
 betelgeuse
 hengst
+sweeney
 
 [desktop:vars]
 ansible_connection=local
