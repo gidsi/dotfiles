@@ -2,3 +2,9 @@ dotfiles_user_home: "{{ '~' | expanduser }}"
 dotfiles_home: "{{dotfiles_user_home}}/.dotfiles"
 
 vim_install_plugins: no
+
+emails: "{{ vault_emails }}"
+
+irc: "{{ vault_irc }}"
+
+irc_accounts: "{{ vault_irc_accounts }}"

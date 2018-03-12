@@ -1,4 +1,4 @@
-- include: arch.yml
+- include_tasks: arch.yml
   when: ansible_os_family == "Archlinux"
 
 - name: Ensure there is a ~/.config/i3 folder
@@ -36,3 +36,10 @@
     src: "{{ dotfiles_home }}/roles/i3/files/xinitrc"
     dest: "{{ dotfiles_user_home }}/.xinitrc"
     state: link
+
+- name: Copy brightness script
+  copy:
+    src: "{{ dotfiles_home }}/roles/i3/files/brightness"
+    dest: "/usr/local/bin/brightness"
+    mode: 0755
+  become: true

@@ -11,8 +11,8 @@ ZSH_CUSTOM=$HOME/roles/zsh/custom
 plugins=(archlinux docker docker-compose git thefuck yarn)
 
 # User configuration
-
-  export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.dotfiles/bin"
+export GOPATH=$HOME/.go
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:$HOME/.dotfiles/bin:$GOPATH/bin"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -20,8 +20,6 @@ source $ZSH/oh-my-zsh.sh
 alias ls="ls --color=auto"
 alias vi=vim
 alias fehg="feh -g 1920x1080 -d -S filename "
-
-GOPATH=~/.go
 
 #ls colors
 eval $(dircolors -b .dircolors)

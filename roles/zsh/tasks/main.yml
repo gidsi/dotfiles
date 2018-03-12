@@ -1,7 +1,7 @@
 # Installation and setup
-- include: debian.yml
+- include_tasks: debian.yml
   when: ansible_os_family == "Debian"
-- include: arch.yml
+- include_tasks: arch.yml
   when: ansible_os_family == "Archlinux"
 
 - name: link zshrc

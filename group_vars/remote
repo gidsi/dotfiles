@@ -1,2 +1,0 @@
-dotfiles_user_home: /home/gidsi
-dotfiles_home: "{{dotfiles_user_home}}/.dotfiles"
