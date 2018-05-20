@@ -2,44 +2,51 @@
   when: ansible_os_family == "Archlinux"
 
 - name: Ensure there is a ~/.config/i3 folder
-  file: path={{ dotfiles_user_home }}/.config/i3
+  file: 
+    path: "{{ dotfiles_user_home }}/.config/i3"
+    recurse: yes
+
 - name: Copy i3 config
   template:
-    src: "{{ dotfiles_home }}/roles/i3/templates/i3config.j2"
+    src: "i3config.j2"
     dest: "{{ dotfiles_user_home }}/.config/i3/config"
+
+- name: Install Py3status
+  aur: name=py3status-git user=gidsi dir=/tmp
+  become: yes
 
 - name: Create i3status
   template:
-    src: "{{ dotfiles_home }}/roles/i3/templates/i3status.j2"
+    src: "i3status.j2"
     dest: "{{ dotfiles_user_home }}/.i3status.conf"
 
 - name: Link dircolors
   file:
-    src: "{{ dotfiles_home }}/roles/i3/files/dircolors"
+    src: "{{ dotfiles_home }}/roles/windowmanager/files/dircolors"
     dest: "{{ dotfiles_user_home }}/.dircolors" 
     state: link
 
 - name: Link Xresources
   file:
-    src: "{{ dotfiles_home }}/roles/i3/files/Xresources"
+    src: "{{ dotfiles_home }}/roles/windowmanager/files/Xresources"
     dest: "{{ dotfiles_user_home }}/.Xresources"
     state: link
 
 - name: Link zlogin
   file:
-    src: "{{ dotfiles_home }}/roles/i3/files/zlogin"
+    src: "{{ dotfiles_home }}/roles/windowmanager/files/zlogin"
     dest: "{{ dotfiles_user_home }}/.zlogin"
     state: link
 
 - name: Linx xinit
   file:
-    src: "{{ dotfiles_home }}/roles/i3/files/xinitrc"
+    src: "{{ dotfiles_home }}/roles/windowmanager/files/xinitrc"
     dest: "{{ dotfiles_user_home }}/.xinitrc"
     state: link
 
 - name: Copy brightness script
   copy:
-    src: "{{ dotfiles_home }}/roles/i3/files/brightness"
+    src: "{{ dotfiles_home }}/roles/windowmanager/files/brightness"
     dest: "/usr/local/bin/brightness"
     mode: 0755
   become: true

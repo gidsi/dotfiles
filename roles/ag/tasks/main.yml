@@ -1,4 +1,0 @@
-- name: Install ag with pacman
-  pacman: name=the_silver_searcher state=present
-  when: ansible_os_family == "Archlinux"
-  become_method: sudo

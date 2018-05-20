@@ -8,10 +8,9 @@
     - git
     - {role: package_manager, tags: ['bootstrap']}
     - zsh
-    - i3
+    - windowmanager
     - vim
-    - ag
     - mutt
-    - cloc
     - irssi
     - pulseaudio
+    - ide

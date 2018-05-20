@@ -3,6 +3,11 @@
 - include_tasks: debian.yml
   when: ansible_os_family == "Debian"
 
+- name: Create irssi config folder
+  file:
+    path: "{{ dotfiles_user_home }}/.irssi"
+    state: directory
+
 - name: Create irssi config
   template:
     src: "irssi.j2"

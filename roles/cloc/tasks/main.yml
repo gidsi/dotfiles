@@ -1,4 +1,0 @@
-- name: Install cloc with pacman
-  pacman: name=cloc state=present
-  when: ansible_os_family == "Archlinux"
-  become_method: sudo

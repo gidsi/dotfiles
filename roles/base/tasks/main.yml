@@ -1,0 +1,13 @@
+---
+- name: Generate SSH keys
+  shell: "ssh-keygen -b 4096 -f {{ dotfiles_user_home }}/.ssh/id_rsa"
+  args:
+    creates: "{{ dotfiles_user_home }}/.ssh/id_rsa"
+
+- name: Install packages
+  pacman: name={{ item }} state=latest
+  become: true
+  with_items:
+    - cloc
+    - base-devel
+    - the_silver_searcher

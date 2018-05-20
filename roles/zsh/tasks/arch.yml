@@ -1,8 +1,8 @@
 
 - name: Make sure zsh is installed
   pacman: name=zsh state=present
-  become_method: sudo
+  become: true
 
 - name: Install thefuck
   pacman: name=thefuck state=present
-  become_method: sudo
+  become: true

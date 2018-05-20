@@ -1,3 +1,3 @@
 - name: Install git with pacman
   pacman: name=git state=present
-  become_method: sudo
+  become: yes

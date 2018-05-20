@@ -3,6 +3,7 @@
   become: true
   with_items:
     - i3-wm
+    - i3lock
     - imagemagick
     - rofi
     - i3status
@@ -11,6 +12,8 @@
     - feh
     - scrot
     - ttf-font-awesome
+    - xorg-xrandr
+    - xorg-xbacklight
 
 - name: Create screenshot folder
   file:
@@ -25,3 +28,4 @@
     - ttf-hack-powerline-git
     - clipster-git
     - urxvt-resize-font-git
+    - google-chrome-dev

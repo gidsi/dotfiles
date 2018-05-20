@@ -9,3 +9,8 @@
     src: "{{ dotfiles_home }}/roles/zsh/files/zshrc"
     dest: "{{ dotfiles_user_home }}/.zshrc"
     state: link
+
+- name: Add Oh My Zsh
+  git:
+    repo: "https://github.com/robbyrussell/oh-my-zsh.git"
+    dest: "{{ dotfiles_user_home }}/.oh-my-zsh"
