@@ -6,3 +6,6 @@
 - name: Install thefuck
   pacman: name=thefuck state=present
   become: true
+
+- name: Install exa
+  pacman: name=exa state=present

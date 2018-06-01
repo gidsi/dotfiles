@@ -19,7 +19,7 @@ source $ZSH/oh-my-zsh.sh
 GOOGLE_SDK="docker run --rm=true -ti -v $HOME:/root --volumes-from gcloud-config google/cloud-sdk "
 
 #aliases
-alias ls="ls --color=auto"
+alias ls="exa --git --time-style=long-iso --group"
 alias vi=vim
 alias fehg="feh -g 1920x1080 -d -S filename "
 alias docker="sudo docker"
