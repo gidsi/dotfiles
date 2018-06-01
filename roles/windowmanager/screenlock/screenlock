@@ -23,10 +23,11 @@ screencapturelock() {
 }
 
 resizepicturelock() {
-  cd /tmp
-  convert $PICTURE_PATH/$(ls $PICTURE_PATH | shuf -n 1) -resize $RES_MAXx$RES_MAX -gravity Center -crop $RESOLUTION lock.png
-  if [ -a lock-2.png ]; then
-      mv lock-1.png lock.png
+  mkdir -p /tmp/screenlock
+  cd /tmp/screenlock
+  convert $RANDOM_IMAGE -resize $RES_MAXx$RES_MAX -gravity Center -crop $RESOLUTION +repage lock.png
+  if [ -a lock-1.png ]; then
+      mv lock-0.png lock.png
   fi
   i3lock -uef -i lock.png
   rm lock*.png
