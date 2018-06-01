@@ -9,3 +9,6 @@
 
 - name: Install exa
   pacman: name=exa state=present
+
+- name: Install fzf
+  pacman: name=fzf state=present
