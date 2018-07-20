@@ -22,8 +22,7 @@ alias ls="exa --git --time-style=long-iso --group"
 alias vi=vim
 alias fehg="feh -g 1920x1080 -d -S filename "
 alias docker="sudo docker"
-alias gcloud="$GOOGLE_SDK gcloud "
-alias kubectl="$GOOGLE_SDK kubectl " 
+alias docker-compose="sudo docker-compose"
 
 #ls colors
 eval $(dircolors -b .dircolors)
