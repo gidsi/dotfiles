@@ -23,8 +23,6 @@ alias vi=vim
 alias fehg="feh -g 1920x1080 -d -S filename "
 alias docker="sudo docker"
 alias docker-compose="sudo docker-compose"
-alias gcloud="$GOOGLE_SDK gcloud "
-alias kubectl="$GOOGLE_SDK kubectl " 
 
 #ls colors
 eval $(dircolors -b .dircolors)
