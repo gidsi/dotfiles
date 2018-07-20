@@ -2,3 +2,4 @@ wlan_device: "wlp4s0"
 batteries: [ '/sys/class/power_supply/BAT0/uevent']
 keyboard_layout: "de"
 aur_installed: true
+git_full_name: timm
