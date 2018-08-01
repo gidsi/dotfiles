@@ -27,5 +27,7 @@ alias docker-compose="sudo docker-compose"
 #ls colors
 eval $(dircolors -b .dircolors)
 
+eval $(keychain --eval --quiet id_rsa)
+
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh

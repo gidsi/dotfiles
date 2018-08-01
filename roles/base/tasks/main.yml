@@ -11,3 +11,4 @@
     - cloc
     - base-devel
     - the_silver_searcher
+    - keychain
