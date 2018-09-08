@@ -11,3 +11,6 @@
     - cloc
     - base-devel
     - the_silver_searcher
+    - whois
+    - htop
+    - dnsutils
