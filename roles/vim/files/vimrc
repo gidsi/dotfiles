@@ -290,4 +290,6 @@ let pymode_lint_jump = 0
 set list
 set listchars=eol:⏎,tab:>-,trail:␠,nbsp:⎵
 
+au BufNewFile,BufRead /dev/shm/gopass.* setlocal noswapfile nobackup noundofile
+
 " vim:set ft=vim et sw=2:
