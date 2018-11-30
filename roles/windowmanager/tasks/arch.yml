@@ -14,6 +14,7 @@
     - ttf-font-awesome
     - xorg-xrandr
     - xorg-xbacklight
+    - wpa_actiond
 
 - name: Create screenshot folder
   file:
