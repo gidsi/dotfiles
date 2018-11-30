@@ -8,3 +8,6 @@ emails: "{{ vault_emails }}"
 irc: "{{ vault_irc }}"
 
 irc_accounts: "{{ vault_irc_accounts }}"
+
+docker_data_folder: "/var/docker/data/"
+docker_folder: "/var/docker/files/"

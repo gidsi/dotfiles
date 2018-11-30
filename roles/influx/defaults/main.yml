@@ -1,0 +1,1 @@
+influx_data_folder: "{{ docker_data_folder }}/influx"

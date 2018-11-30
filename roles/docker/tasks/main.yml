@@ -1,0 +1,22 @@
+---
+- name: Create config folder
+  file:
+    path: "{{ docker_folder }}"
+    state: directory
+
+- name: Create data folder
+  file:
+    path: "{{ docker_data_folder }}"
+    state: directory
+
+- name: Install docker
+  pacman:
+    name: docker
+    state: latest
+
+- name: Enable and start docker service
+  systemd:
+    enabled: yes
+    state: started
+    daemon_reload: yes
+    name: docker
