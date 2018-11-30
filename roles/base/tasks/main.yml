@@ -1,8 +1,8 @@
 ---
 - name: Generate SSH keys
-  shell: "ssh-keygen -b 4096 -f {{ dotfiles_user_home }}/.ssh/id_rsa"
+  shell: "ssh-keygen -b 4096 -f ~/.ssh/id_rsa"
   args:
-    creates: "{{ dotfiles_user_home }}/.ssh/id_rsa"
+    creates: "~/.ssh/id_rsa"
 
 - name: Install packages
   pacman:

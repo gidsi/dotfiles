@@ -1,2 +1,2 @@
 echo "Updating local dev environment..."
-ansible-playbook -l $(hostname) -i ~/.dotfiles/desktops ~/.dotfiles/local_env.yml --skip-tags "bootstrap" -K --vault-id ~/.dotfiles/bin/password.sh
+ansible-playbook -l $(hostname) -i ~/.dotfiles/inventory ~/.dotfiles/local_env.yml --skip-tags "bootstrap" -K --vault-id ~/.dotfiles/bin/password.sh

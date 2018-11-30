@@ -1,0 +1,11 @@
+---
+- name: Run influx docker
+  docker_container:
+    name: influxdb
+    image: influxdb
+    state: started
+    published_ports:
+     - "8086:8086"
+    volumes:
+     - "{{ influx_data_folder }}/data:/var/lib/influxdb"
+     - "{{ influx_data_folder }}/influxdb.conf:/etc/influxdb/influxdb.conf:ro"
