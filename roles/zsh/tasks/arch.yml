@@ -14,3 +14,7 @@
 - name: Install fzf
   pacman: name=fzf state=present
   become: true
+
+- name: Install keychain
+  pacman: name=keychain state=present
+  become: true
