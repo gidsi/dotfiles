@@ -50,3 +50,8 @@
     dest: "/usr/local/bin/brightness"
     mode: 0755
   become: true
+
+- name: Enable wireless auto
+  systemd:
+    name: netctl-auto@{{ wlan_device }}
+    enabled: yes
