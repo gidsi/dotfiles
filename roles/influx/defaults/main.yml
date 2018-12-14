@@ -1,1 +1,7 @@
 influx_data_folder: "{{ docker_data_folder }}/influx"
+
+admin_user: "{{ influx_admin_user }}"
+admin_password: "{{ influx_admin_password }}"
+user: "{{ influx_user }}"
+password: "{{ influx_password }}"
+db: "{{ influx_db }}"

@@ -1,0 +1,5 @@
+influx_admin_user: "admin"
+influx_admin_password: "{{ vault_influx_admin_password }}"
+influx_user: "influx"
+influx_password: "{{ vault_influx_password }}"
+influx_db: "db0"

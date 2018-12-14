@@ -31,3 +31,4 @@ eval $(keychain --eval --quiet id_rsa)
 
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
+
