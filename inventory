@@ -11,6 +11,3 @@ sally ansible_host=51.15.34.206 ansible_user=root
 [desktop:vars]
 ansible_connection=local
 ansible_python_interpreter=/usr/bin/python3
-
-[homeautomation:vars]
-ansible_python_interpreter=/usr/bin/python3
