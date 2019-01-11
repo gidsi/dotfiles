@@ -2,7 +2,7 @@
   when: ansible_os_family == "Archlinux"
 
 - name: Ensure there is a ~/.config/i3 folder
-  file: 
+  file:
     path: "{{ dotfiles_user_home }}/.config/i3"
     recurse: yes
 
@@ -12,7 +12,10 @@
     dest: "{{ dotfiles_user_home }}/.config/i3/config"
 
 - name: Install Py3status
-  aur: name=py3status-git user=gidsi dir=/tmp
+  aur:
+    name: py3status
+    user: gidsi
+    dir: /tmp
   become: yes
 
 - name: Create i3status
