@@ -12,7 +12,8 @@
       "the_silver_searcher",
       "whois",
       "htop",
-      "dnsutils"
+      "dnsutils",
+      "p7zip"
     ]
     state: latest
   become: true

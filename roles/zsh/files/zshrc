@@ -7,7 +7,7 @@ COMPLETION_WAITING_DOTS="true"
 
 ZSH_CUSTOM=$HOME/roles/zsh/custom
 
-plugins=(archlinux docker docker-compose git thefuck yarn)
+plugins=(archlinux docker docker-compose git thefuck yarn zsh-syntax-highlighting kubetail)
 
 # User configuration
 export GOPATH=$HOME/.go
@@ -31,3 +31,5 @@ eval $(keychain --eval --quiet id_rsa)
 
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
+
+if [ /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
