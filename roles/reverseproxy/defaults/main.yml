@@ -1,0 +1,2 @@
+traefik_data_folder: "{{ docker_data_folder }}/traefik"
+traefik_config_folder: "{{ docker_folder }}/traefik"

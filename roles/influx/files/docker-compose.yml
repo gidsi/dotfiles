@@ -1,0 +1,76 @@
+version: '3'
+
+services:
+  influxdb:
+    image: influxdb
+    restart: always
+    environment:
+      - INFLUXDB_ADMIN_ENABLED=true
+      - INFLUXDB_REPORTING_DISABLED=true
+      - INFLUXDB_HTTP_AUTH_ENABLED=true
+      - INFLUXDB_ADMIN_USER=${ADMIN_USER}
+      - INFLUXDB_ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - INFLUXDB_USER=${USER}
+      - INFLUXDB_USER_PASSWORD=${USER_PASSWORD}
+      - INFLUXDB_DB=${DB}
+    networks:
+      - traefik-web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik-web"
+      - "traefik.frontend.rule=Host:influx.sally.szigat.de"
+    volumes:
+     - "${DATA_FOLDER}/data:/var/lib/influxdb"
+       #- "${DATA_FOLDER}/influxdb.conf:/etc/influxdb/influxdb.conf:ro"
+
+  chronograf:
+    image: chronograf
+    restart: always
+    networks:
+      - traefik-web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8888"
+      - "traefik.docker.network=traefik-web"
+      - "traefik.frontend.rule=Host:chronograf.sally.szigat.de"
+      - 'traefik.frontend.auth.basic.users='
+    volumes:
+     - "${DATA_FOLDER}/chronograf:/var/lib/chronograf"
+
+  prometheus:
+    image: "prom/prometheus:v2.6.0"
+    depends_on:
+      - influx
+    networks:
+      - default
+      - traefik-web
+    labels:
+    - "traefik.enable=true"
+    - "traefik.port=9090"
+    - "traefik.frontend.auth.basic.users=${PROMETHEUS_BASIC_AUTH}"
+    - "traefik.docker.network=traefik-web"
+    - "traefik.frontend.rule=Host:prometheus.sally.szigat.de"
+    volumes:
+    - "${DATA_FOLDER}/prometheus:/prometheus:rw"
+    - "${DATA_FOLDER}/prometheus.yml:/etc/prometheus/prometheus.yml:ro"
+
+  grafana:
+    image: "grafana/grafana:5.4.2"
+    depends_on:
+      - prometheus
+    networks:
+      - default
+      - traefik-web
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: "${GRAFANA_ADMIN_PASSWORD}"
+    volumes:
+    - "${DATA_FOLDER}/grafana:/var/lib/grafana"
+    labels:
+    - "traefik.enable=true"
+    - "traefik.port=3000"
+    - "traefik.docker.network=traefik-web"
+    - "traefik.frontend.rule=Host:metrics.sally.szigat.de"
+
+networks:
+  traefik-web:
+    external: true

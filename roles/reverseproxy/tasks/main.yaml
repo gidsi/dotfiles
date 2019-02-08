@@ -1,0 +1,45 @@
+- name: Configure traefik
+  block:
+  - file:
+      path: "{{ traefik_config_folder }}"
+      state: directory
+      owner: root
+      group: root
+      mode: 0755
+
+  - template:
+      src: env.j2
+      dest: "{{ traefik_config_folder }}/.env"
+      owner: root
+      group: root
+      mode: 0700
+
+  - copy:
+      src: docker-compose.yml
+      dest: "{{ traefik_config_folder }}/docker-compose.yml"
+      owner: root
+      group: root
+      mode: 0755
+
+  - file:
+      path: "{{ traefik_data_folder }}/acme"
+      state: directory
+      owner: root
+      group: root
+      mode: 0755
+
+  - copy:
+      src: traefik.toml
+      dest: "{{ traefik_data_folder }}/traefik.toml"
+
+  - docker_network:
+      name: traefik-web
+      state: present
+
+- name: Run traefik
+  docker_service:
+    project_src: "{{ traefik_config_folder }}"
+    recreate: always
+    build: yes
+    nocache: yes
+    state: present

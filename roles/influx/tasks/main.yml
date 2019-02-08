@@ -1,18 +1,36 @@
 ---
-- name: Run influx docker
-  docker_container:
-    name: influxdb
-    image: influxdb
-    state: started
-    env:
-      INFLUXDB_ADMIN_ENABLED: true
-      INFLUXDB_ADMIN_USER: "{{ admin_user }}"
-      INFLUXDB_ADMIN_PASSWORD: "{{ admin_password }}"
-      INFLUXDB_USER: "{{ user }}"
-      INFLUXDB_USER_PASSWORD: "{{ password }}"
-      INFLUXDB_DB: "{{ db }}"
-    published_ports:
-     - "8086:8086"
-    volumes:
-     - "{{ influx_data_folder }}/data:/var/lib/influxdb"
-     - "{{ influx_data_folder }}/influxdb.conf:/etc/influxdb/influxdb.conf:ro"
+- name: Create service config
+  block:
+  - copy:
+      src: "influxdb.conf"
+      dest: "{{ influx_data_folder }}/influxdb.conf"
+
+  - file:
+      path: "{{ influx_config_folder }}"
+      state: directory
+      owner: root
+      group: root
+      mode: 0755
+
+  - template:
+      src: env.j2
+      dest: "{{ influx_config_folder }}/.env"
+      owner: root
+      group: root
+      mode: 0700
+
+  - copy:
+      src: docker-compose.yml
+      dest: "{{ influx_config_folder }}/docker-compose.yml"
+      owner: root
+      group: root
+      mode: 0755
+
+- name: Run influx
+  docker_service:
+    project_src: "{{ influx_config_folder }}"
+    recreate: always
+    build: yes
+    nocache: yes
+    state: present
+
