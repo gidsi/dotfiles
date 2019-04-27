@@ -16,4 +16,3 @@
       "p7zip"
     ]
     state: latest
-  become: true

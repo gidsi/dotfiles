@@ -3,12 +3,14 @@
   gather_facts: yes
 
 - name: Set up local environment
+  become: yes
   hosts: desktop
   roles:
     - git
     - {role: package_manager, tags: ['bootstrap']}
     - zsh
     - windowmanager
+    - filemanager
     - vim
     - mutt
     - irssi

@@ -1,8 +1,13 @@
 # Installation and setup
-- include_tasks: debian.yml
-  when: ansible_os_family == "Debian"
-- include_tasks: arch.yml
-  when: ansible_os_family == "Archlinux"
+- name: Install packages
+  pacman:
+    name:
+      - zsh
+      - thefuck
+      - exa
+      - fzf
+      - keychain
+    state: present
 
 - name: link zshrc
   file:
@@ -14,3 +19,8 @@
   git:
     repo: "https://github.com/robbyrussell/oh-my-zsh.git"
     dest: "{{ dotfiles_user_home }}/.oh-my-zsh"
+
+- name: Add Oh My Zsh syntax highlighting
+  git:
+    repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+    dest: "{{ dotfiles_user_home }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
