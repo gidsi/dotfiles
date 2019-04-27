@@ -1,0 +1,13 @@
+---
+- name: Install ranger
+  pacman:
+    name:
+      - ranger
+      - w3m
+    state: present
+
+- name: Activate image preview in ranger
+  lineinfile:
+    path: "{{ dotfiles_user_home }}/.config/ranger/rc.conf"
+    create: yes
+    line: 'set preview_images true'
