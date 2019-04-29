@@ -24,3 +24,8 @@
   git:
     repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
     dest: "{{ dotfiles_user_home }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+
+- name: Add oh my zsh kubetail plugin
+  git:
+    repo: "https://github.com/johanhaleby/kubetail.git"
+    dest: "{{ dotfiles_user_home }}/.oh-my-zsh/custom/plugins/kubetail"
