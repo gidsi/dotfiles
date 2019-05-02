@@ -3,4 +3,4 @@ batteries: [ '/sys/class/power_supply/BAT0/uevent']
 keyboard_layout: "de"
 aur_installed: true
 git_full_name: timm
-git_signingkey: "EA94F9A9FA755BFFA365F0597F059C52F5F705F9"
+git_email: "{{ vault_git_email }}"
