@@ -13,9 +13,8 @@
 
 - name: Install Py3status
   aur:
-    name: py3status
-    user: gidsi
-    dir: /tmp
+    name: py3status-git
+  become_user: aur_builder
   become: yes
 
 - name: Create i3status

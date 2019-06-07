@@ -7,7 +7,8 @@
   hosts: desktop
   roles:
     - git
-    - {role: package_manager, tags: ['bootstrap']}
+    - package_manager
+    - google-cloud
     - zsh
     - windowmanager
     - filemanager

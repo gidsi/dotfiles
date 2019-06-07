@@ -24,11 +24,13 @@
       state: directory
 
 - name: Install from aur
-  aur: name={{ item }} user=gidsi dir=/tmp
+  aur:
+    name:
+      - unclutter-xfixes-git
+      - ttf-hack-powerline-git
+      - clipster-git
+      - urxvt-resize-font-git
+      - google-chrome-dev
+  become_user: aur_builder
   become: true
-  with_items:
-    - unclutter-xfixes-git
-    - ttf-hack-powerline-git
-    - clipster-git
-    - urxvt-resize-font-git
-    - google-chrome-dev
+

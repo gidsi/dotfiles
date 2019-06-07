@@ -1,0 +1,5 @@
+---
+- name: Install google cloud sdk
+  aur:
+    name: google-cloud-sdk
+  become_user: aur_builder
