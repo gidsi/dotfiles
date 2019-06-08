@@ -15,6 +15,9 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin
 
 export MAVEN_OPTS=-Xmx2048m
 
+PATH="$HOME/.node_modules/bin:$PATH"
+export npm_config_prefix=~/.node_modules
+
 source $ZSH/oh-my-zsh.sh
 
 #aliases
