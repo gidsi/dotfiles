@@ -35,4 +35,4 @@ eval $(keychain --eval --quiet id_rsa)
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 
-if [ /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
+if [ -f /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi

@@ -1,0 +1,23 @@
+#!/bin/bash
+ACTIVE_SINK=$(pactl list sinks short | grep "RUNNING" | head -c 1)
+
+if [[ $1 = "-" ]]; then
+    pactl set-sink-volume $ACTIVE_SINK -5%
+    DIRECTION="Lowered"
+else
+    pactl set-sink-volume $ACTIVE_SINK +5%
+    DIRECTION="Raised"
+fi
+
+# this is the "sometimes i hate pulseAudio"-line
+NOW=$( pactl list sinks | grep '^[[:space:]]Volume:' | head -n $(( $ACTIVE_SINK + 1 )) | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,' )
+
+REPLACE_ID=$(cat /tmp/volume_notification_id 2>/dev/null)
+
+if [[ $REPLACE_ID = "" ]]; then
+    VOLUME_NOTIFICATION_ID=$(notify-send.py $DIRECTION "is now $NOW%" -a volume -t 2000)
+else
+    VOLUME_NOTIFICATION_ID=$(notify-send.py $DIRECTION "is now $NOW%" -a volume -r $REPLACE_ID -t 2000)
+fi
+
+echo $VOLUME_NOTIFICATION_ID > /tmp/volume_notification_id

@@ -1,1 +1,2 @@
+autorandr --change &
 exec i3

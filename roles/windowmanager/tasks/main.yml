@@ -1,5 +1,40 @@
-- include_tasks: arch.yml
-  when: ansible_os_family == "Archlinux"
+- name: Install packages
+  pacman:
+    name: [
+      'i3-wm',
+      'i3lock',
+      'imagemagick',
+      'rofi',
+      'i3status',
+      'rxvt-unicode',
+      'compton',
+      'feh',
+      'scrot',
+      'ttf-font-awesome',
+      'xorg-xrandr',
+      'acpilight',
+      'wpa_actiond'
+    ]
+    state: latest
+  become: true
+
+- name: Install from aur
+  aur:
+    name:
+      - unclutter-xfixes-git
+      - ttf-hack-powerline-git
+      - clipster-git
+      - urxvt-resize-font-git
+      - google-chrome-dev
+      - deadd-notification-center-bin
+      - autorandr
+  become_user: aur_builder
+  become: true
+
+- name: Create screenshot folder
+  file:
+    path: ~/screenshots
+    state: directory
 
 - name: Ensure there is a ~/.config/i3 folder
   file:
@@ -40,7 +75,7 @@
     dest: "{{ dotfiles_user_home }}/.zlogin"
     state: link
 
-- name: Linx xinit
+- name: Link xinit
   file:
     src: "{{ dotfiles_home }}/roles/windowmanager/files/xinitrc"
     dest: "{{ dotfiles_user_home }}/.xinitrc"
@@ -52,6 +87,41 @@
     dest: "/usr/local/bin/brightness"
     mode: 0755
   become: true
+
+- name: Copy volume script
+  copy:
+    src: "{{ dotfiles_home }}/roles/windowmanager/files/volume"
+    dest: "/usr/local/bin/volume"
+    mode: 0755
+  become: true
+
+- name: Ensure there is a deadd config folder
+  file:
+    path: "{{ dotfiles_user_home }}/.config/deadd"
+    recurse: yes
+
+- name: Link deadd config
+  file:
+    src: "{{ dotfiles_home }}/roles/windowmanager/files/deadd.conf"
+    dest: "{{ dotfiles_user_home }}/.config/deadd/deadd.conf"
+    state: link
+
+- name: Clone notify-send.py
+  git:
+    repo: "https://github.com/phuhl/notify-send.py.git"
+    dest: "{{ dotfiles_user_home }}/.notify-send.py"
+  register: notifysend
+
+- name: Install notify2 for notify-send.py
+  pip:
+    name: notify2
+  become: true
+
+- name: Install notify-send.py
+  command: python setup.py install
+  args:
+    chdir: "{{ dotfiles_user_home }}/.notify-send.py"
+  when: notifysend.changed
 
 - name: Enable wireless auto
   systemd:
