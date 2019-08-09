@@ -36,3 +36,7 @@ source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 
 if [ -f /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
+
+s_whichhostgroup() {
+    ldapsearch "(nisNetgroupTriple=\($1*)" nisNetgroupTriple 2>>/dev/null | grep "dn: "
+}
