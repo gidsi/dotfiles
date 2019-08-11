@@ -142,7 +142,7 @@
     name: netctl-auto@{{ wlan_device }}
     enabled: yes
 
-- name: Copy rofi-pass
-  file:
+- name: Copy rofi-gopass
+  copy:
     src: "rofi-gopass"
     dest: "/usr/local/bin"

@@ -3,4 +3,4 @@ batteries: []
 keyboard_layout: "en"
 aur_installed: true
 
-theme: "dracula"
+theme: "rebecca"
