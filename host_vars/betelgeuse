@@ -2,3 +2,5 @@ wlan_device: "wlp4s0"
 batteries: []
 keyboard_layout: "en"
 aur_installed: true
+
+theme: "dracula"

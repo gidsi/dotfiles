@@ -14,7 +14,7 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start rofi (program launcher)
-bindsym $mod+d exec "rofi -combi-modi ssh,run -show combi -modi combi"
+bindsym $mod+d exec rofi -theme base16-{{ theme }} -location 2 -combi-modi ssh#run#pass:rofi-gopass -show combi -modi combi
 
 # change focus
 bindsym $mod+j focus left
@@ -115,26 +115,28 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-set $base00 #1e0528
-set $base01 #1A092D
-set $base02 #331354
-set $base03 #320f55
-set $base04 #873582
-set $base05 #ffeeff
-set $base06 #ffeeff
-set $base07 #f8c0ff
-set $base08 #00d9e9
-set $base09 #aa00a3
-set $base0A #955ae7
-set $base0B #05cb0d
-set $base0C #b900b1
-set $base0D #550068
-set $base0E #8991bb
-set $base0F #4d6fff
+# set $base00 #1e0528
+# set $base01 #1A092D
+# set $base02 #331354
+# set $base03 #320f55
+# set $base04 #873582
+# set $base05 #ffeeff
+# set $base06 #ffeeff
+# set $base07 #f8c0ff
+# set $base08 #00d9e9
+# set $base09 #aa00a3
+# set $base0A #955ae7
+# set $base0B #05cb0d
+# set $base0C #b900b1
+# set $base0D #550068
+# set $base0E #8991bb
+# set $base0F #4d6fff
+
+{{ i3BaseColor }}
 
 # Property Name         Border  BG      Text    Indicator Child Border
-client.focused          $base00 $base0D $base05 $base0E $base0D
-client.focused_inactive $base01 $base01 $base04 $base03 $base01
+client.focused          $base05 $base0D $base00 $base0D $base0C
+client.focused_inactive $base01 $base01 $base05 $base03 $base01
 client.unfocused        $base01 $base00 $base05 $base01 $base01
 client.urgent           $base08 $base08 $base00 $base08 $base08
 client.placeholder      $base00 $base00 $base05 $base00 $base00
@@ -150,9 +152,9 @@ bar {
             statusline $base04
 
             # State             Border  BG      Text
-            focused_workspace   $base04 $base0D $base04
-            active_workspace    $base0D $base00 $base03
-            inactive_workspace  $base0D $base00 $base03
+            focused_workspace   $base05 $base0D $base00
+            active_workspace    $base05 $base03 $base00
+            inactive_workspace  $base03 $base01 $base05
             urgent_workspace    $base08 $base08 $base00
             binding_mode        $base00 $base0A $base00
         }

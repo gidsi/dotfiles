@@ -38,12 +38,12 @@ imap {{ email.id }}{
 {% endfor %}
 
 wireless {{ wlan_device }} {
-  format_up = "%essid" #%bitrate %quality "
+  format_up = " %essid" #%bitrate %quality "
   format_down = " down"
 }
 
 mpd_status {
-  host = "mpd.chaospott.de"
+  host = "mpd"
 }
 
 {% for battery in batteries %}
@@ -52,29 +52,29 @@ battery {{ loop.index0 }} {
   integer_battery_capacity = true
   threshold_type = "time"
   low_threshold = 60
-  format = "%status%percentage %remaining %consumption"
+  format = " %status%percentage %remaining %consumption"
   path = "{{ battery }}"
 }
 {% endfor %}
 
 tztime local {
-  format = "%Y-%m-%d %H:%M"
+  format = " %Y-%m-%d %H:%M"
 }
 
 load {
-  format = "%1min"
+  format = " %1min"
 }
 
 cpu_usage {
-  format = "%usage"
+  format = " %usage"
 }
 
 disk "/" {
-  format = "%avail"
+  format = " %avail"
 }
 
 volume master {
-  format = "♪%volume"
+  format = "♪ %volume"
   format_muted = "  "
   device = "default"
   mixer = "Master"
@@ -82,5 +82,5 @@ volume master {
 }
 
 ddate {
-  format = "☯%a,%b %d,%Y%N(%H)"
+  format = "☯ %a,%b %d,%Y%N(%H)"
 }

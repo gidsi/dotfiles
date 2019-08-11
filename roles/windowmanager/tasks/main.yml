@@ -36,6 +36,16 @@
     path: ~/screenshots
     state: directory
 
+- name: Ensure there is a ~/.config/rofi folder
+  file:
+    path: "{{ dotfiles_user_home }}/.config/rofi"
+    recurse: yes
+
+- name: Copy rofi theme
+  copy:
+    src: "{{ dotfiles_user_home }}/.base16colors/templates/rofi/themes/base16-{{ theme }}.rasi"
+    dest: "{{ dotfiles_user_home }}/.config/rofi/base16-{{ theme }}.rasi"
+
 - name: Ensure there is a ~/.config/i3 folder
   file:
     path: "{{ dotfiles_user_home }}/.config/i3"
@@ -45,6 +55,10 @@
   template:
     src: "i3config.j2"
     dest: "{{ dotfiles_user_home }}/.config/i3/config"
+  vars:
+    i3BaseColor: "{{ lookup('file', '{{ dotfiles_user_home }}/.base16colors/templates/i3/colors/base16-{{ theme }}.config') }}"
+  tags:
+    - "theme"
 
 - name: Install Py3status
   aur:
@@ -127,3 +141,8 @@
   systemd:
     name: netctl-auto@{{ wlan_device }}
     enabled: yes
+
+- name: Copy rofi-pass
+  file:
+    src: "rofi-gopass"
+    dest: "/usr/local/bin"

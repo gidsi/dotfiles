@@ -9,8 +9,8 @@
     - git
     - package_manager
     - google-cloud
-    - zsh
-    - windowmanager
+    - { role: zsh, tags: [ "theme" ] }
+    - { role: windowmanager, tags: [ "theme" ] }
     - filemanager
     - vim
     - mutt

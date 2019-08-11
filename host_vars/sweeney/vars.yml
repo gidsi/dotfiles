@@ -4,3 +4,5 @@ keyboard_layout: "de"
 aur_installed: true
 git_full_name: timm
 git_email: "{{ vault_git_email }}"
+
+theme: "dracula"
