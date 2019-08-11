@@ -1,4 +1,6 @@
 export ZSH=$HOME/.oh-my-zsh
+
+export BASE16_SHELL_SET_BACKGROUND=false
 ~/.zsh_theme.sh
 
 ZSH_THEME="agnoster"
