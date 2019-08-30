@@ -186,5 +186,5 @@ exec --no-startup-id clipster -d
 exec --no-startup-id deadd-notification-center
 
 {% if keyboard_layout is defined %}
-exec --no-startup-id setxkbmap {{ keyboard_layout }}
+exec --no-startup-id setxkbmap {{ keyboard_layout }} -option compose:caps
 {% endif %}
