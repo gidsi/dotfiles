@@ -1,0 +1,20 @@
+- name: Install dependencies
+  pacman:
+    name:
+      - git
+      - go
+    state: present
+  become: true
+
+- name: Make sure base16 folder exits
+  file:
+    path: "{{ dotfiles_user_home }}/.base16colors"
+
+- name: Install base16-builder-go
+  command: go get -v github.com/belak/base16-builder-go
+
+- name: Update base16 themes
+  command: chdir={{ dotfiles_user_home }}/.base16colors base16-builder-go update
+
+- name: Build base16 themes
+  command: chdir={{ dotfiles_user_home }}/.base16colors base16-builder-go build
