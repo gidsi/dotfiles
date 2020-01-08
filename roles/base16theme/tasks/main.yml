@@ -15,6 +15,8 @@
 
 - name: Update base16 themes
   command: chdir={{ dotfiles_user_home }}/.base16colors base16-builder-go update
+  ignore_errors: yes
 
 - name: Build base16 themes
   command: chdir={{ dotfiles_user_home }}/.base16colors base16-builder-go build
+  ignore_errors: yes
