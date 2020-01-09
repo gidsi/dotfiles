@@ -1,7 +1,6 @@
 - name: Install packages
   pacman:
     name: [
-      'i3-wm',
       'i3lock',
       'imagemagick',
       'rofi',
@@ -13,7 +12,8 @@
       'ttf-font-awesome',
       'xorg-xrandr',
       'acpilight',
-      'wpa_actiond'
+      'wpa_actiond',
+      'alacritty'
     ]
     state: latest
   become: true
@@ -21,6 +21,7 @@
 - name: Install from aur
   aur:
     name:
+      - i3-gaps
       - unclutter-xfixes-git
       - ttf-hack-powerline-git
       - clipster-git
@@ -146,3 +147,18 @@
   copy:
     src: "rofi-gopass"
     dest: "/usr/local/bin"
+
+- name: Ensure there is a ~/.config/alacritty folder
+  file:
+    path: "{{ dotfiles_user_home }}/.config/alacritty"
+    recurse: yes
+
+- name: Link alacritty config
+  copy:
+    src: "alacritty.yml"
+    dest: "{{ dotfiles_user_home }}/.config/alacritty/alacritty.yml"
+
+- name: Insert/Update configuration using a local file and validate it
+  blockinfile:
+    block: "{{ lookup('file', '{{ dotfiles_user_home }}/.base16colors/templates/alacritty/colors/base16-{{ theme }}.yml') }}"
+    dest: "{{ dotfiles_user_home }}/.config/alacritty/alacritty.yml"
