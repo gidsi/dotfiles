@@ -5,7 +5,6 @@
       'imagemagick',
       'rofi',
       'i3status',
-      'rxvt-unicode',
       'compton',
       'feh',
       'scrot',
@@ -23,9 +22,8 @@
     name:
       - i3-gaps
       - unclutter-xfixes-git
-      - ttf-hack-powerline-git
+      - powerline-fonts-git
       - clipster-git
-      - urxvt-resize-font-git
       - google-chrome-dev
       - deadd-notification-center-bin
       - autorandr
