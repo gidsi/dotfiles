@@ -1,3 +1,0 @@
-- name: Install vim 
-  pacman: name=gvim state=present
-  become: yes

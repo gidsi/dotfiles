@@ -1,10 +1,9 @@
-dotfiles_user_home: "{{ '~' | expanduser }}"
-dotfiles_home: "{{dotfiles_user_home}}/.dotfiles"
+dotfiles_home: "{{ ansible_env.HOME }}/.dotfiles"
 
 vim_install_plugins: no
 
-emails: "{{ vault_emails }}"
+mutt_accounts: "{{ vault_mutt_accounts }}"
 
-irc: "{{ vault_irc }}"
+irssi_config: "{{ vault_irssi_config }}"
 
-irc_accounts: "{{ vault_irc_accounts }}"
+irssi_irc_accounts: "{{ vault_irssi_irc_accounts }}"

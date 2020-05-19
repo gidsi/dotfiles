@@ -1,0 +1,19 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    irssi_config:
+      real_name: Peter
+      user_name: parker
+      nick: parker
+    irssi_irc_accounts:
+      - id: foo
+        login: parker
+        password: secret
+        address: irc.myserver.net
+        port: 8472
+        autosendcmd: "/join #myroom"
+  tasks:
+    - name: "Include irssi"
+      include_role:
+        name: "irssi"

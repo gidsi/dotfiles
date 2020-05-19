@@ -1,14 +1,13 @@
-- include_tasks: arch.yml
-  when: ansible_os_family == "Archlinux"
-- include_tasks: debian.yml
-  when: ansible_os_family == "Debian"
+- name: Install irssi with pacman
+  pacman: name=irssi state=present
+  become: yes
 
 - name: Create irssi config folder
   file:
-    path: "{{ dotfiles_user_home }}/.irssi"
+    path: "{{ ansible_env.HOME }}/.irssi"
     state: directory
 
 - name: Create irssi config
   template:
     src: "irssi.j2"
-    dest: "{{dotfiles_user_home}}/.irssi/config"
+    dest: "{{ ansible_env.HOME }}/.irssi/config"

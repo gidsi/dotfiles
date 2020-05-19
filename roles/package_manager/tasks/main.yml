@@ -1,4 +1,12 @@
 ---
+- name: Update system
+  pacman:
+    name:
+      - base-devel
+      - binutils
+      - fakeroot
+    state: present
+
 - user:
     name: aur_builder
     group: wheel

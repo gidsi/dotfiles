@@ -1,3 +1,5 @@
+# {{ ansible_managed }}
+
 set $mod Mod4
 
 # font
@@ -168,7 +170,7 @@ bindsym XF86AudioRaiseVolume exec volume
 bindsym XF86MonBrightnessDown exec brightness -
 bindsym XF86MonBrightnessUp exec brightness
 
-bindsym $mod+End exec {{ dotfiles_home }}/roles/windowmanager/screenlock/screenlock picture
+bindsym $mod+End exec {{ ansible_env.HOME }}/.config/i3/screenlock/screenlock.sh picture
 
 bindsym $mod+c exec clipster -sp
 
@@ -179,7 +181,7 @@ bindsym --release $mod+Shift+Print exec scrot ~/screenshots/%Y-%m-%d-%T.png
 
 exec --no-startup-id xrdb -merge ~/.Xresources
 exec --no-startup-id compton
-exec --no-startup-id feh --bg-fill {{ dotfiles_home }}/roles/windowmanager/screenlock/pictures/normal/tent-stars.jpg
+exec --no-startup-id feh --bg-fill {{ ansible_env.HOME }}/.config/i3/screenlock/pictures/normal/tent-stars.jpg
 exec --no-startup-id unclutter
 exec --no-startup-id clipster -d
 exec --no-startup-id deadd-notification-center

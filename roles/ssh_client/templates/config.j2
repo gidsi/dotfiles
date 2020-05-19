@@ -1,0 +1,17 @@
+# {{ ansible_managed }}
+
+Host *
+    GSSAPIAuthentication yes
+    StrictHostKeyChecking no
+
+{% for ssh_host in ssh_hosts %}
+Host {{ ssh_host.name }}
+{% if ssh_host.hostname is defined %}
+    Hostname {{ ssh_host.hostname }}
+{% endif %}{% if ssh_host.user is defined %}
+    User {{ ssh_host.user }}
+{% endif %}{% if ssh_host.port is defined %}
+    Port {{ ssh_host.port }}
+{% endif %}
+
+{% endfor %}

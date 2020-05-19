@@ -1,13 +1,15 @@
-- include_tasks: arch.yml
-  when: ansible_os_family == "Archlinux"
-- include_tasks: debian.yml
-  when: ansible_os_family == "Debian"
+---
+- name: Install mutt with pacman
+  pacman:
+    name: mutt
+    state: present
+  become: yes
 
 - name: Create mutt config
   template:
     src: "mutt.j2"
-    dest: "{{dotfiles_user_home}}/.mutt_{{item.id}}"
-  with_items: "{{ emails }}"
-
-      
-
+    dest: "{{ ansible_env.HOME }}/.mutt_{{item.id}}"
+  with_items: "{{ mutt_accounts }}"
+  no_log: yes
+  loop_control:
+    label: "{{ item.id }}"

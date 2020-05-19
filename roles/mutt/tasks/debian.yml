@@ -1,4 +1,0 @@
-
-- name: Install mutt with apt
-  apt: name=mutt state=latest
-  become_method: sudo

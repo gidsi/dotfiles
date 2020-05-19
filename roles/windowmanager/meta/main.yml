@@ -1,3 +1,4 @@
 dependencies:
   - { role: base }
+  - { role: package_manager }
   - { role: base16theme }

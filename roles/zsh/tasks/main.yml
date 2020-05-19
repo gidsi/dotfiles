@@ -11,29 +11,29 @@
 
 - name: Set theme
   copy:
-    src: "{{ dotfiles_user_home }}/.base16colors/templates/shell/scripts/base16-{{ theme }}.sh"
-    dest: "{{ dotfiles_user_home }}/.zsh_theme.sh"
+    src: "{{ ansible_env.HOME }}/.base16colors/templates/shell/scripts/base16-{{ theme }}.sh"
+    dest: "{{ ansible_env.HOME }}/.zsh_theme.sh"
+    remote_src: yes
     mode: "755"
   tags:
-    - "theme"
+    - theme
 
-- name: link zshrc
-  file:
-    src: "{{ dotfiles_home }}/roles/zsh/files/zshrc"
-    dest: "{{ dotfiles_user_home }}/.zshrc"
-    state: link
+- name: Configure zshrc
+  copy:
+    src: "zshrc"
+    dest: "{{ ansible_env.HOME }}/.zshrc"
 
 - name: Add Oh My Zsh
   git:
     repo: "https://github.com/robbyrussell/oh-my-zsh.git"
-    dest: "{{ dotfiles_user_home }}/.oh-my-zsh"
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh"
 
 - name: Add Oh My Zsh syntax highlighting
   git:
     repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
-    dest: "{{ dotfiles_user_home }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
 
 - name: Add oh my zsh kubetail plugin
   git:
     repo: "https://github.com/johanhaleby/kubetail.git"
-    dest: "{{ dotfiles_user_home }}/.oh-my-zsh/custom/plugins/kubetail"
+    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/kubetail"

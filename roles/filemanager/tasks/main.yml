@@ -8,6 +8,6 @@
 
 - name: Activate image preview in ranger
   lineinfile:
-    path: "{{ dotfiles_user_home }}/.config/ranger/rc.conf"
+    path: "{{ ansible_env.HOME }}/.config/ranger/rc.conf"
     create: yes
     line: 'set preview_images true'

@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    mutt_accounts:
+      - id: work
+        login: me
+        password: secret
+        email: me@example.com
+        smtp: me@smtp.example.com
+        imap: imap.example.com
+        name: Me
+  tasks:
+    - name: "Include mutt"
+      include_role:
+        name: "mutt"

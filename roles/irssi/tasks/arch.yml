@@ -1,3 +1,0 @@
-- name: Install irssi with pacman
-  pacman: name=irssi state=present
-  become: yes

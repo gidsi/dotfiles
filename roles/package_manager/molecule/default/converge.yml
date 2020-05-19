@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include package_manager"
+      include_role:
+        name: "package_manager"

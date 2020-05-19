@@ -1,0 +1,83 @@
+# {{ ansible_managed }}
+
+window:
+  padding:
+    x: 5
+    y: 5
+  #dynamic_padding: true
+  decorations: none
+
+scrolling:
+  history: 10000
+
+  # Number of lines the viewport will move for every line scrolled when
+  # scrollback is enabled (history > 0).
+  #multiplier: 3
+
+  #auto_scroll: false
+
+font:
+  normal:
+    family: "Roboto Mono for Powerline"
+
+    # The `style` can be specified to pick a specific face.
+    #style: Regular
+
+  # Bold font face
+  # bold:
+    # Font family
+    #
+    # If the bold family is not specified, it will fall back to the
+    # value specified for the normal font.
+    #family: monospace
+
+    # The `style` can be specified to pick a specific face.
+    #style: Bold
+
+  # Italic font face
+  #italic:
+    # Font family
+    #
+    # If the italic family is not specified, it will fall back to the
+    # value specified for the normal font.
+    #family: monospace
+
+    # The `style` can be specified to pick a specific face.
+    #style: Italic
+
+  # Bold italic font face
+  #bold_italic:
+    # Font family
+    #
+    # If the bold italic family is not specified, it will fall back to the
+    # value specified for the normal font.
+    #family: monospace
+
+    # The `style` can be specified to pick a specific face.
+    #style: Bold Italic
+
+  # Point size
+  size: 7.0
+
+visual_bell:
+  animation: Ease
+  duration: 200
+  color: '0x000000'
+
+background_opacity: 0.9
+dynamic_title: true
+live_config_reload: true
+
+mouse:
+  hide_when_typing: false
+  url:
+    launcher:
+      program: xdg-open
+      args: []
+
+key_bindings:
+  - { key: Up,   mods: Control,       action: IncreaseFontSize }
+  - { key: Down, mods: Control,       action: DecreaseFontSize }
+
+# colors
+{{ alacrittyBase16Colors }}

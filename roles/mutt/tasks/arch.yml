@@ -1,3 +1,0 @@
-- name: Install mutt with pacman
-  pacman: name=mutt state=present
-  become: yes

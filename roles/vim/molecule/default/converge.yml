@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: all
+  vars:
+    vim_install_plugins: no
+  tasks:
+    - name: "Include vim"
+      include_role:
+        name: "vim"

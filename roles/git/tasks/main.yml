@@ -1,27 +1,16 @@
-
-- include_tasks: arch.yml
-  when: ansible_os_family == "Archlinux"
-- include_tasks: debian.yml
-  when: ansible_os_family == "Debian"
+---
+- name: Install git
+  pacman:
+    name: git
+    state: present
+  become: yes
 
 - name: Link global gitignore file
-  file:
-    src: "{{ dotfiles_home }}/roles/git/files/gitignore_global.link"
-    dest: "{{ dotfiles_user_home }}/.gitignore_global"
-    state: link
-    force: yes
+  copy:
+    src: "gitignore_global"
+    dest: "{{ ansible_env.HOME }}/.gitignore_global"
 
-- name: Check if gitconfig exists
-  stat: path="{{dotfiles_user_home}}/.gitconfig"
-  register: gitconfig_stat
-
-- name: Back up gitconfig
-  command: mv ~/.gitconfig ~/.gitconfig.bak
-  args:
-    creates: "{{dotfiles_user_home}}/.gitconfig.bak"
-  when: gitconfig_stat.stat.exists
-
-- name: Make sure gitconfig is up to date
+- name: Configure git
   template:
     src: "gitconfig.j2"
-    dest: "{{dotfiles_user_home}}/.gitconfig"
+    dest: "{{ ansible_env.HOME }}/.gitconfig"

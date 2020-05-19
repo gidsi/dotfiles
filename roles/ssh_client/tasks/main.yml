@@ -1,0 +1,21 @@
+---
+- name: Install packages
+  become: yes
+  pacman:
+    name: "openssh"
+    state: present
+
+- name: Create SSH folder
+  file:
+    path: "{{ ssh_client_config_folder }}"
+    state: directory
+
+- name: Generate SSH key
+  openssh_keypair:
+    path: "{{ ssh_client_config_folder }}/id_ed25519"
+    type: ed25519
+
+- name: Configure SSH
+  template:
+    src: config.j2
+    dest: "{{ ssh_client_config_folder }}/config"

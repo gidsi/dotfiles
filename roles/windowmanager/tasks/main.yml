@@ -1,20 +1,18 @@
 - name: Install packages
   pacman:
-    name: [
-      'i3lock',
-      'imagemagick',
-      'rofi',
-      'i3status',
-      'compton',
-      'feh',
-      'scrot',
-      'ttf-font-awesome',
-      'xorg-xrandr',
-      'acpilight',
-      'wpa_actiond',
-      'alacritty'
-    ]
-    state: latest
+    name:
+      - i3lock
+      - imagemagick
+      - rofi
+      - i3status
+      - compton
+      - feh
+      - scrot
+      - ttf-font-awesome
+      - xorg-xrandr
+      - acpilight
+      - alacritty
+    state: present
   become: true
 
 - name: Install from aur
@@ -24,6 +22,7 @@
       - unclutter-xfixes-git
       - powerline-fonts-git
       - clipster-git
+      - wpa_actiond
       - google-chrome-dev
       - deadd-notification-center-bin
       - autorandr
@@ -32,30 +31,42 @@
 
 - name: Create screenshot folder
   file:
-    path: ~/screenshots
+    path: "{{ ansible_env.HOME }}/screenshots"
     state: directory
 
 - name: Ensure there is a ~/.config/rofi folder
   file:
-    path: "{{ dotfiles_user_home }}/.config/rofi"
+    path: "{{ ansible_env.HOME }}/.config/rofi"
     recurse: yes
 
 - name: Copy rofi theme
   copy:
-    src: "{{ dotfiles_user_home }}/.base16colors/templates/rofi/themes/base16-{{ theme }}.rasi"
-    dest: "{{ dotfiles_user_home }}/.config/rofi/base16-{{ theme }}.rasi"
+    src: "{{ ansible_env.HOME }}/.base16colors/templates/rofi/themes/base16-{{ theme }}.rasi"
+    dest: "{{ ansible_env.HOME }}/.config/rofi/base16-{{ theme }}.rasi"
+    remote_src: yes
 
 - name: Ensure there is a ~/.config/i3 folder
   file:
-    path: "{{ dotfiles_user_home }}/.config/i3"
+    path: "{{ ansible_env.HOME }}/.config/i3"
+    state: directory
     recurse: yes
+
+- name: Copy background and screenlock
+  copy:
+    src: files/screenlock
+    dest: "{{ ansible_env.HOME }}/.config/i3/"
+
+- name: Read i3 color file
+  slurp:
+    src: "{{ ansible_env.HOME }}/.base16colors/templates/i3/colors/base16-{{ theme }}.config"
+  register: i3BaseColorBase64
 
 - name: Copy i3 config
   template:
-    src: "i3config.j2"
-    dest: "{{ dotfiles_user_home }}/.config/i3/config"
+    src: i3config.j2
+    dest: "{{ ansible_env.HOME }}/.config/i3/config"
   vars:
-    i3BaseColor: "{{ lookup('file', '{{ dotfiles_user_home }}/.base16colors/templates/i3/colors/base16-{{ theme }}.config') }}"
+    i3BaseColor: i3BaseColorBase64['content'] | b64decode
   tags:
     - "theme"
 
@@ -67,79 +78,65 @@
 
 - name: Create i3status
   template:
-    src: "i3status.j2"
-    dest: "{{ dotfiles_user_home }}/.i3status.conf"
+    src: i3status.j2
+    dest: "{{ ansible_env.HOME }}/.i3status.conf"
 
 - name: Link dircolors
-  file:
-    src: "{{ dotfiles_home }}/roles/windowmanager/files/dircolors"
-    dest: "{{ dotfiles_user_home }}/.dircolors" 
-    state: link
+  copy:
+    src: dircolors
+    dest: "{{ ansible_env.HOME }}/.dircolors"
 
 - name: Link Xresources
-  file:
-    src: "{{ dotfiles_home }}/roles/windowmanager/files/Xresources"
-    dest: "{{ dotfiles_user_home }}/.Xresources"
-    state: link
+  copy:
+    src: Xresources
+    dest: "{{ ansible_env.HOME }}/.Xresources"
 
 - name: Link zlogin
-  file:
-    src: "{{ dotfiles_home }}/roles/windowmanager/files/zlogin"
-    dest: "{{ dotfiles_user_home }}/.zlogin"
-    state: link
+  copy:
+    src: zlogin
+    dest: "{{ ansible_env.HOME }}/.zlogin"
 
 - name: Link xinit
-  file:
-    src: "{{ dotfiles_home }}/roles/windowmanager/files/xinitrc"
-    dest: "{{ dotfiles_user_home }}/.xinitrc"
-    state: link
+  copy:
+    src: xinitrc
+    dest: "{{ ansible_env.HOME }}/.xinitrc"
 
 - name: Copy brightness script
   copy:
-    src: "{{ dotfiles_home }}/roles/windowmanager/files/brightness"
+    src: brightness
     dest: "/usr/local/bin/brightness"
     mode: 0755
   become: true
 
 - name: Copy volume script
   copy:
-    src: "{{ dotfiles_home }}/roles/windowmanager/files/volume"
+    src: volume
     dest: "/usr/local/bin/volume"
     mode: 0755
   become: true
 
 - name: Ensure there is a deadd config folder
   file:
-    path: "{{ dotfiles_user_home }}/.config/deadd"
+    path: "{{ ansible_env.HOME }}/.config/deadd"
     recurse: yes
 
 - name: Link deadd config
-  file:
-    src: "{{ dotfiles_home }}/roles/windowmanager/files/deadd.conf"
-    dest: "{{ dotfiles_user_home }}/.config/deadd/deadd.conf"
-    state: link
-
-- name: Clone notify-send.py
-  git:
-    repo: "https://github.com/phuhl/notify-send.py.git"
-    dest: "{{ dotfiles_user_home }}/.notify-send.py"
-  register: notifysend
+  copy:
+    src: deadd.conf
+    dest: "{{ ansible_env.HOME }}/.config/deadd/deadd.conf"
 
 - name: Install notify2 for notify-send.py
   pip:
-    name: notify2
+    name:
+     - notify2
+     - notify-send.py
   become: true
-
-- name: Install notify-send.py
-  command: python setup.py install
-  args:
-    chdir: "{{ dotfiles_user_home }}/.notify-send.py"
-  when: notifysend.changed
 
 - name: Enable wireless auto
   systemd:
     name: netctl-auto@{{ wlan_device }}
     enabled: yes
+  when: wlan_device is defined
 
 - name: Copy rofi-gopass
   copy:
@@ -148,15 +145,17 @@
 
 - name: Ensure there is a ~/.config/alacritty folder
   file:
-    path: "{{ dotfiles_user_home }}/.config/alacritty"
+    path: "{{ ansible_env.HOME }}/.config/alacritty"
     recurse: yes
 
-- name: Link alacritty config
-  copy:
-    src: "alacritty.yml"
-    dest: "{{ dotfiles_user_home }}/.config/alacritty/alacritty.yml"
+- name: Read alacritty color file
+  slurp:
+    src: "{{ ansible_env.HOME }}/.base16colors/templates/alacritty/colors/base16-{{ theme }}.yml"
+  register: alacrittyColorBase64
 
-- name: Insert/Update configuration using a local file and validate it
-  blockinfile:
-    block: "{{ lookup('file', '{{ dotfiles_user_home }}/.base16colors/templates/alacritty/colors/base16-{{ theme }}.yml') }}"
-    dest: "{{ dotfiles_user_home }}/.config/alacritty/alacritty.yml"
+- name: Configure alacritty
+  template:
+    src: alacritty.yml.j2
+    dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml"
+  vars:
+    alacrittyBase16Colors: alacrittyColorBase64['content'] | b64decode

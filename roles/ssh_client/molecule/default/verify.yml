@@ -1,0 +1,24 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  tasks:
+  - name: Check that SSH config exists
+    stat:
+      path: ~/.ssh/config
+    register: config_result
+  - name: Check that SSH private key exists
+    stat:
+      path: ~/.ssh/id_ed25519
+    register: private_key_result
+  - name: Check that SSH public key exists
+    stat:
+      path: ~/.ssh/id_ed25519.pub
+    register: public_key_result
+  - name: Assert
+    assert:
+      that:
+        - config_result.stat.exists
+        - private_key_result.stat.exists
+        - public_key_result.stat.exists

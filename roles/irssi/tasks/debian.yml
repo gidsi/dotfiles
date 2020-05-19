@@ -1,4 +1,0 @@
-
-- name: Install irssi with apt
-  apt: name=irssi state=latest
-  become_method: sudo

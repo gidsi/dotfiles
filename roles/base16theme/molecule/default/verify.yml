@@ -1,0 +1,21 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+  - name: Install which for assertions
+    pacman:
+      name: which
+      state: present
+  - name: Check if base16-builder-go is installed
+    command: 'which base16-builder-go'
+    register: base16_builder_go_installed
+    ignore_errors: yes
+  - name: Check that base16 folder exists
+    stat:
+      path: ~/.base16colors
+    register: base16colors_result
+  - name: Assertions
+    assert:
+      that:
+        - base16_builder_go_installed.rc == 0
+        - base16colors_result.stat.exists

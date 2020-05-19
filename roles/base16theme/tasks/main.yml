@@ -1,22 +1,45 @@
+---
 - name: Install dependencies
   pacman:
-    name:
-      - git
-      - go
+    name: go
     state: present
   become: true
 
 - name: Make sure base16 folder exits
   file:
-    path: "{{ dotfiles_user_home }}/.base16colors"
+    path: "{{ ansible_env.HOME }}/.base16colors"
+    state: directory
+  register: base16_folder
 
-- name: Install base16-builder-go
-  command: go get -v github.com/belak/base16-builder-go
+- name: Install base16-builder-go and update if didn't exist
+  when: base16_folder is changed
+  block:
+  - name: Create go temp folder
+    file:
+      path: "/tmp/go"
+      state: directory
 
-- name: Update base16 themes
-  command: chdir={{ dotfiles_user_home }}/.base16colors base16-builder-go update
-  ignore_errors: yes
+  - name: Make base16-builder-go
+    command:
+      cmd: go get -v github.com/belak/base16-builder-go
+    environment:
+      GOPATH: "/tmp/go"
 
-- name: Build base16 themes
-  command: chdir={{ dotfiles_user_home }}/.base16colors base16-builder-go build
-  ignore_errors: yes
+  - name: Install base16-builder-go
+    copy:
+      src: /tmp/go/bin/base16-builder-go
+      dest: /usr/local/bin/base16-builder-go
+      remote_src: yes
+      mode: '0755'
+
+  - name: Update base16 themes
+    command:
+      chdir: "{{ ansible_env.HOME }}/.base16colors"
+      cmd: base16-builder-go update
+    ignore_errors: yes
+
+  - name: Build base16 themes
+    command:
+      chdir: "{{ ansible_env.HOME }}/.base16colors"
+      cmd: base16-builder-go build
+    ignore_errors: yes

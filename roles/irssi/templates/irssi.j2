@@ -1,5 +1,7 @@
+# {{ ansible_managed }}
+
 servers = (
-{% for irc_account in irc_accounts %}
+{% for irc_account in irssi_irc_accounts %}
   {
     address = "{{irc_account.address}}";
     chatnet = "{{irc_account.id}}";
@@ -12,7 +14,7 @@ servers = (
 );
 
 chatnets = {
-{% for irc_account in irc_accounts %}
+{% for irc_account in irssi_irc_accounts %}
   {{irc_account.id}} = {
     type = "IRC";
     {% if irc_account.autosendcmd is defined %}autosendcmd = "{{irc_account.autosendcmd}}";{% endif %}
@@ -273,6 +275,6 @@ statusbar = {
   };
 };
 settings = {
-  core = { real_name = "{irc.real_name}"; user_name = "{irc.user_name}"; nick = "{irc.nick}"; };
+  core = { real_name = "{{ irssi_config.real_name }}"; user_name = "{{ irssi_config.user_name }}"; nick = "{{ irssi_config.nick }}"; };
   "fe-text" = { actlist_sort = "refnum"; };
 };

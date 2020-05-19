@@ -1,5 +1,7 @@
 - name: Install pulseaudio
   pacman:
-    name: ['pulseaudio', 'pavucontrol']
-    state: latest
+    name:
+      - pulseaudio
+      - pavucontrol
+    state: present
   become: true

@@ -6,7 +6,9 @@
   become: yes
   hosts: desktop
   roles:
+    - base
     - git
+    - ssh_client
     - package_manager
     - google-cloud
     - { role: zsh, tags: [ "theme" ] }
@@ -16,4 +18,4 @@
     - mutt
     - irssi
     - pulseaudio
-    - ide
+    - intellij

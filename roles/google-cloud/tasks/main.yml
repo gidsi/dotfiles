@@ -3,3 +3,4 @@
   aur:
     name: google-cloud-sdk
   become_user: aur_builder
+  become: yes

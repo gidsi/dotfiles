@@ -1,2 +1,2 @@
 #!/bin/bash
-gopass misc/dotfiles_ansible_vault
+gopass show -o misc/dotfiles_ansible_vault

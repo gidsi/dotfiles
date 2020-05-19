@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include base16theme"
+      include_role:
+        name: "base16theme"
