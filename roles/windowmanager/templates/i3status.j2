@@ -6,6 +6,7 @@ general {
   output_format = "i3bar"
 }
 
+order += "tomodoro"
 order += "spaceapi"
 order += "mpd_status"
 {% if wlan_device is defined %}
@@ -21,9 +22,14 @@ order += "battery {{ loop.index0 }}"
 {% endfor %}
 order += "disk /"
 order += "load"
+order += "arch_updates"
 order += "tztime local"
 order += "ddate"
 order += "volume master"
+
+tomodoro {
+  format = " {time_left}"
+}
 
 spaceapi {
   color_closed = "#ff7070"
@@ -69,10 +75,6 @@ tztime local {
 
 load {
   format = " %1min"
-}
-
-cpu_usage {
-  format = " %usage"
 }
 
 disk "/" {

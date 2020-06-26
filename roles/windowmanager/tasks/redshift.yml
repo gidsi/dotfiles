@@ -1,0 +1,26 @@
+---
+- name: Install redshift
+  pacman:
+    name: redshift
+    state: present
+  become: true
+
+- name: Create redshift config folder
+  file:
+    path: "{{ ansible_env.HOME }}/.config/redshift"
+    recurse: yes
+    state: directory
+
+- name: Configure redshift
+  template:
+    src: redshift.conf.j2
+    dest: "{{ ansible_env.HOME }}/.config/redshift/redshift.conf"
+
+- name: Enable and start redshift
+  systemd:
+    name: redshift
+    state: started
+    enabled: yes
+    scope: user
+  environment:
+    XDG_RUNTIME_DIR: /run/user/1000

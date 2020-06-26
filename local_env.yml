@@ -3,7 +3,6 @@
   gather_facts: yes
 
 - name: Set up local environment
-  become: yes
   hosts: desktop
   roles:
     - base

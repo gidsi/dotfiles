@@ -6,21 +6,25 @@
       - binutils
       - fakeroot
     state: present
+  become: yes
 
 - user:
     name: aur_builder
     group: wheel
+  become: yes
 
 - lineinfile:
     path: /etc/sudoers.d/11-install-aur_builder
     line: 'aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman'
     create: yes
     validate: 'visudo -cf %s'
+  become: yes
 
 - name: Update system
   pacman:
     update_cache: yes
     upgrade: yes
+  become: yes
 
 - name: Install aur package manager
   aur:
@@ -33,3 +37,4 @@
   aur:
     upgrade: yes
   become_user: aur_builder
+  become: yes
