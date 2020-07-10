@@ -1,16 +1,16 @@
 #!/bin/bash
 
 RESOLUTION=$(xrandr -q | awk -F'current' -F',' 'NR==1 {gsub("( |current)","");print $2}')
-RES_MAX=$(expr match $RESOLUTION '\(.[0-9]*\)')
+RES_MAX=$(expr match ${RESOLUTION} '\(.[0-9]*\)')
 
-PICTURE_PATH=~/.dotfiles/roles/windowmanager/screenlock/pictures
-if [ "$RES_MAX" -gt 1920 ]; then
+PICTURE_PATH=~/.config/i3/screenlock/pictures
+if [[ "$RES_MAX" -gt 1920 ]]; then
     PICTURE_PATH="$PICTURE_PATH/wide"
 else
     PICTURE_PATH="$PICTURE_PATH/normal"
 fi
 
-RANDOM_IMAGE=$PICTURE_PATH/$(ls $PICTURE_PATH | shuf -n 1)
+RANDOM_IMAGE=${PICTURE_PATH}/$(ls ${PICTURE_PATH} | shuf -n 1)
 
 screencapturelock() {
   cd /tmp
