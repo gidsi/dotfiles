@@ -12,6 +12,7 @@
       - xorg-xrandr
       - acpilight
       - alacritty
+      - xss-lock
     state: present
   become: true
 

@@ -171,6 +171,7 @@ bindsym XF86MonBrightnessDown exec brightness -
 bindsym XF86MonBrightnessUp exec brightness
 
 bindsym $mod+End exec {{ ansible_env.HOME }}/.config/i3/screenlock/screenlock.sh picture
+bindsym $mod+Shift+End exec systemctl suspend
 
 bindsym $mod+c exec clipster -sp
 
@@ -181,10 +182,11 @@ bindsym --release $mod+Shift+Print exec scrot ~/screenshots/%Y-%m-%d-%T.png
 
 exec --no-startup-id xrdb -merge ~/.Xresources
 exec --no-startup-id compton
-exec --no-startup-id feh --bg-fill {{ ansible_env.HOME }}/.config/i3/screenlock/pictures/normal/tent-stars.jpg
+exec --no-startup-id feh --bg-fill --no-xinerama {{ ansible_env.HOME }}/.config/i3/screenlock/pictures/wide/colors-2.png
 exec --no-startup-id unclutter
 exec --no-startup-id clipster -d
 exec --no-startup-id deadd-notification-center
+exec --no-startup-id xss-lock -- {{ ansible_env.HOME }}/.config/i3/screenlock/screenlock.sh picture &
 
 {% if keyboard_layout is defined %}
 exec --no-startup-id setxkbmap {{ keyboard_layout }} -option compose:caps

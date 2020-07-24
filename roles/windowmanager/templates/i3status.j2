@@ -8,7 +8,6 @@ general {
 
 order += "tomodoro"
 order += "spaceapi"
-order += "mpd_status"
 {% if wlan_device is defined %}
 order += "wireless {{ wlan_device }}"
 {% endif %}
@@ -53,10 +52,6 @@ wireless {{ wlan_device }} {
   format_down = " down"
 }
 {% endif %}
-
-mpd_status {
-  host = "mpd"
-}
 
 {% for battery in batteries %}
 battery {{ loop.index0 }} {

@@ -12,4 +12,5 @@
       - python-pip
       - the_silver_searcher
       - whois
+      - cyrus-sasl-gssapi
     state: present
