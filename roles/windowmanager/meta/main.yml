@@ -2,3 +2,5 @@ dependencies:
   - { role: base }
   - { role: package_manager }
   - { role: base16theme }
+  - { role: alacritty, alacritty_theme: "{{ theme }}" }
+  - { role: rofi, rofi_theme: "{{ theme }}" }

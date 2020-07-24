@@ -1,17 +1,24 @@
 ---
 - name: Install dependencies
   pacman:
-    name: go
+    name:
+      - go
     state: present
   become: true
+  tags:
+    - theme
 
 - name: Make sure base16 folder exits
   file:
     path: "{{ ansible_env.HOME }}/.base16colors"
     state: directory
   register: base16_folder
+  tags:
+    - theme
 
 - name: Install base16-builder-go and update if didn't exist
+  tags:
+    - theme
   when: base16_folder is changed
   block:
   - name: Create go temp folder

@@ -1,0 +1,25 @@
+---
+- name: Install packages
+  pacman:
+    name:
+      - rofi
+    state: present
+  become: true
+
+- name: Ensure there is a ~/.config/rofi folder
+  file:
+    path: "{{ ansible_env.HOME }}/.config/rofi"
+    recurse: yes
+
+- name: Copy rofi theme
+  copy:
+    src: "{{ ansible_env.HOME }}/.base16colors/templates/rofi/themes/base16-{{ rofi_theme }}.rasi"
+    dest: "{{ ansible_env.HOME }}/.config/rofi/base16-{{ rofi_theme }}.rasi"
+    remote_src: yes
+  tags:
+    - theme
+
+- name: Copy rofi-gopass
+  copy:
+    src: "rofi-gopass"
+    dest: "/usr/local/bin"

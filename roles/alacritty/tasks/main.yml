@@ -1,0 +1,21 @@
+---
+- name: Ensure there is a ~/.config/alacritty folder
+  file:
+    path: "{{ ansible_env.HOME }}/.config/alacritty"
+    recurse: yes
+
+- name: Read alacritty color file
+  slurp:
+    src: "{{ ansible_env.HOME }}/.base16colors/templates/alacritty/colors/base16-{{ alacritty_theme }}.yml"
+  register: alacrittyColorBase64
+  tags:
+    - theme
+
+- name: Configure alacritty
+  template:
+    src: alacritty.yml.j2
+    dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml"
+  vars:
+    alacrittyBase16Colors: "{{ alacrittyColorBase64['content'] | b64decode }}"
+  tags:
+    - theme

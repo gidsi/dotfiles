@@ -3,6 +3,8 @@
 set -e
 set -x
 
+docker build -t archlinux-python test/
+
 for role in $(ls roles)
 do
         cd roles/$role

@@ -11,7 +11,6 @@
       - ttf-font-awesome
       - xorg-xrandr
       - acpilight
-      - alacritty
     state: present
   become: true
 
@@ -34,17 +33,6 @@
     path: "{{ ansible_env.HOME }}/screenshots"
     state: directory
 
-- name: Ensure there is a ~/.config/rofi folder
-  file:
-    path: "{{ ansible_env.HOME }}/.config/rofi"
-    recurse: yes
-
-- name: Copy rofi theme
-  copy:
-    src: "{{ ansible_env.HOME }}/.base16colors/templates/rofi/themes/base16-{{ theme }}.rasi"
-    dest: "{{ ansible_env.HOME }}/.config/rofi/base16-{{ theme }}.rasi"
-    remote_src: yes
-
 - name: Ensure there is a ~/.config/i3 folder
   file:
     path: "{{ ansible_env.HOME }}/.config/i3"
@@ -60,6 +48,8 @@
   slurp:
     src: "{{ ansible_env.HOME }}/.base16colors/templates/i3/colors/base16-{{ theme }}.config"
   register: i3BaseColorBase64
+  tags:
+    - theme
 
 - name: Copy i3 config
   template:
@@ -68,7 +58,7 @@
   vars:
     i3BaseColor: "{{ i3BaseColorBase64['content'] | b64decode }}"
   tags:
-    - "theme"
+    - theme
 
 - name: Install Py3status
   aur:
@@ -137,28 +127,6 @@
     name: netctl-auto@{{ wlan_device }}
     enabled: yes
   when: wlan_device is defined
-
-- name: Copy rofi-gopass
-  copy:
-    src: "rofi-gopass"
-    dest: "/usr/local/bin"
-
-- name: Ensure there is a ~/.config/alacritty folder
-  file:
-    path: "{{ ansible_env.HOME }}/.config/alacritty"
-    recurse: yes
-
-- name: Read alacritty color file
-  slurp:
-    src: "{{ ansible_env.HOME }}/.base16colors/templates/alacritty/colors/base16-{{ theme }}.yml"
-  register: alacrittyColorBase64
-
-- name: Configure alacritty
-  template:
-    src: alacritty.yml.j2
-    dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml"
-  vars:
-    alacrittyBase16Colors: "{{ alacrittyColorBase64['content'] | b64decode }}"
 
 - name: Install and configure redshift
   import_tasks: redshift.yml
