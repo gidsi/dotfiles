@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include redshift"
+      include_role:
+        name: "redshift"

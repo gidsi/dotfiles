@@ -1,0 +1,37 @@
+---
+- name: Install from aur
+  aur:
+    name:
+      - deadd-notification-center-bin
+  become_user: aur_builder
+  become: true
+
+- name: Ensure there is a deadd config folder
+  file:
+    path: "{{ ansible_env.HOME }}/.config/deadd"
+    recurse: yes
+  tags:
+    - theme
+
+- name: Configure deadd
+  copy:
+    src: deadd.conf
+    dest: "{{ ansible_env.HOME }}/.config/deadd/deadd.conf"
+  tags:
+    - theme
+
+- name: Install notify2 for notify-send.py
+  pip:
+    name:
+      - notify2
+      - notify-send.py
+  become: true
+
+- name: Enable and start redshift
+  systemd:
+    name: redshift
+    state: started
+    enabled: yes
+    scope: user
+  environment:
+    XDG_RUNTIME_DIR: /run/user/1000

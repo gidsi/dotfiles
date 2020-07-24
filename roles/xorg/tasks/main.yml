@@ -1,0 +1,22 @@
+---
+- name: Install packages
+  pacman:
+    name:
+      - xorg
+    state: present
+  become: true
+
+- name: Copy Xwrapper
+  template:
+    src: Xwrapper.config.j2
+    dest: /etc/X11/Xwrapper.config
+
+- name: Link Xresources
+  copy:
+    src: Xresources
+    dest: "{{ ansible_env.HOME }}/.Xresources"
+
+- name: Link xinit
+  copy:
+    src: xinitrc
+    dest: "{{ ansible_env.HOME }}/.xinitrc"

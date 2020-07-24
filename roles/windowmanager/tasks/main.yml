@@ -3,13 +3,11 @@
     name:
       - i3lock
       - imagemagick
-      - rofi
       - i3status
       - compton
       - feh
       - scrot
       - ttf-font-awesome
-      - xorg-xrandr
       - acpilight
     state: present
   become: true
@@ -23,7 +21,6 @@
       - clipster-git
       - wpa_actiond
       - google-chrome-dev
-      - deadd-notification-center-bin
       - autorandr
   become_user: aur_builder
   become: true
@@ -76,20 +73,10 @@
     src: dircolors
     dest: "{{ ansible_env.HOME }}/.dircolors"
 
-- name: Link Xresources
-  copy:
-    src: Xresources
-    dest: "{{ ansible_env.HOME }}/.Xresources"
-
-- name: Link zlogin
-  copy:
-    src: zlogin
-    dest: "{{ ansible_env.HOME }}/.zlogin"
-
-- name: Link xinit
-  copy:
-    src: xinitrc
-    dest: "{{ ansible_env.HOME }}/.xinitrc"
+#- name: Link zlogin
+#  copy:
+#    src: zlogin
+#    dest: "{{ ansible_env.HOME }}/.zlogin"
 
 - name: Copy brightness script
   copy:
@@ -105,28 +92,8 @@
     mode: 0755
   become: true
 
-- name: Ensure there is a deadd config folder
-  file:
-    path: "{{ ansible_env.HOME }}/.config/deadd"
-    recurse: yes
-
-- name: Link deadd config
-  copy:
-    src: deadd.conf
-    dest: "{{ ansible_env.HOME }}/.config/deadd/deadd.conf"
-
-- name: Install notify2 for notify-send.py
-  pip:
-    name:
-     - notify2
-     - notify-send.py
-  become: true
-
 - name: Enable wireless auto
   systemd:
     name: netctl-auto@{{ wlan_device }}
     enabled: yes
   when: wlan_device is defined
-
-- name: Install and configure redshift
-  import_tasks: redshift.yml
