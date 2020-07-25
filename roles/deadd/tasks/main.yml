@@ -20,18 +20,24 @@
   tags:
     - theme
 
+- name: Install dependencies
+  pacman:
+    name:
+      - python-gobject
+  become: yes
+
 - name: Install notify2 for notify-send.py
   pip:
     name:
       - notify2
       - notify-send.py
-  become: true
+    extra_args: --user
 
-- name: Enable and start redshift
-  systemd:
-    name: redshift
-    state: started
-    enabled: yes
-    scope: user
-  environment:
-    XDG_RUNTIME_DIR: /run/user/1000
+#- name: Enable and start deadd
+#  systemd:
+#    name: deadd
+#    state: started
+#    enabled: yes
+#    scope: user
+#  environment:
+#    XDG_RUNTIME_DIR: /run/user/1000

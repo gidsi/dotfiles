@@ -10,10 +10,16 @@
     path: "{{ ssh_client_config_folder }}"
     state: directory
 
+#- name: Generate SSH key
+#  openssh_keypair:
+#    path: "{{ ssh_client_config_folder }}/id_ed25519"
+#    type: ed25519
+
 - name: Generate SSH key
-  openssh_keypair:
-    path: "{{ ssh_client_config_folder }}/id_ed25519"
-    type: ed25519
+  user:
+    name: "{{ ansible_user }}"
+    ssh_key_file: "{{ ssh_client_config_folder }}/id_ed25519"
+    ssh_key_type: ed25519
 
 - name: Configure SSH
   template:

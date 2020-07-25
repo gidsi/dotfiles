@@ -8,7 +8,6 @@
       - feh
       - scrot
       - ttf-font-awesome
-      - acpilight
     state: present
   become: true
 
@@ -17,7 +16,7 @@
     name:
       - i3-gaps
       - unclutter-xfixes-git
-      - powerline-fonts-git
+      #- powerline-fonts-git
       - clipster-git
       - wpa_actiond
       - google-chrome-dev
@@ -97,3 +96,15 @@
     name: netctl-auto@{{ wlan_device }}
     enabled: yes
   when: wlan_device is defined
+
+- name: Copy systemd i3 service file
+  copy:
+    src: i3.service
+    dest: "{{ ansible_env.HOME }}/.config/systemd/user/i3.service"
+
+- name: Enable i3 service
+  systemd:
+    name: i3.service
+    state: started
+    enabled: yes
+    scope: user

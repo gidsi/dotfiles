@@ -3,6 +3,8 @@
   pacman:
     name:
       - xorg
+      - xorg-xbacklight
+      - xorg-xinit
     state: present
   become: true
 
@@ -10,13 +12,45 @@
   template:
     src: Xwrapper.config.j2
     dest: /etc/X11/Xwrapper.config
+  become: true
 
-- name: Link Xresources
+- name: Configure Xresources
   copy:
     src: Xresources
     dest: "{{ ansible_env.HOME }}/.Xresources"
 
-- name: Link xinit
+- name: Configure xinit
   copy:
     src: xinitrc
     dest: "{{ ansible_env.HOME }}/.xinitrc"
+
+- name: Systemd user config folder exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/systemd/user/"
+    state: directory
+
+- name: Copy systemd xorg socket
+  copy:
+    src: xorg.socket
+    dest: "{{ ansible_env.HOME }}/.config/systemd/user/xorg.socket"
+
+- name: Copy systemd xorg service
+  copy:
+    src: xorg.service
+    dest: "{{ ansible_env.HOME }}/.config/systemd/user/xorg.service"
+
+- name: Enable xorg socket
+  systemd:
+    name: xorg.socket
+    state: started
+    enabled: yes
+    scope: user
+
+- name: Enable xorg service
+  systemd:
+    name: xorg.service
+    state: started
+    enabled: yes
+    scope: user
+  environment:
+    XDG_VTNR: 1

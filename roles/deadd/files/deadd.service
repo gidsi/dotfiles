@@ -1,8 +1,8 @@
 [Unit]
-Description=
+Description=Deadd notification center
 
 [Service]
-ExecStart=/usr/bin/mpd --no-daemon
+ExecStart=/usr/bin/deadd-notification-center
 
 [Install]
 WantedBy=default.target

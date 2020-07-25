@@ -8,6 +8,7 @@
       - fzf
       - keychain
     state: present
+  become: yes
 
 - name: Set theme
   copy:
@@ -37,3 +38,9 @@
   git:
     repo: "https://github.com/johanhaleby/kubetail.git"
     dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/kubetail"
+
+- name: Set zsh as default shell
+  user:
+    name: "{{ ansible_user }}"
+    shell: /bin/zsh
+  become: yes

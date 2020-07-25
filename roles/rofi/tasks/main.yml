@@ -23,3 +23,5 @@
   copy:
     src: "rofi-gopass"
     dest: "/usr/local/bin"
+    mode: u=rwx,g=rx,o=rx
+  become: yes

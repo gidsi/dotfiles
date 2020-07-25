@@ -1,7 +1,4 @@
-- name: Collecting Facts
-  hosts: desktop
-  gather_facts: yes
-
+---
 - name: Set up local environment
   hosts: desktop
   roles:
@@ -17,4 +14,4 @@
     - mutt
     - irssi
     - pulseaudio
-    - intellij
+#    - intellij

@@ -5,6 +5,7 @@
       - ranger
       - w3m
     state: present
+  become: yes
 
 - name: Activate image preview in ranger
   lineinfile:

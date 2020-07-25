@@ -38,6 +38,7 @@
       dest: /usr/local/bin/base16-builder-go
       remote_src: yes
       mode: '0755'
+    become: yes
 
   - name: Update base16 themes
     command:
