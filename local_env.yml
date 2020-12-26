@@ -12,6 +12,7 @@
     - google-cloud
     - { role: zsh, tags: [ "theme" ] }
     - { role: windowmanager, tags: [ "theme" ] }
+    - redshift
     - filemanager
     - vim
     - mutt

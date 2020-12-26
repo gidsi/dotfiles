@@ -7,3 +7,6 @@ mutt_accounts: "{{ vault_mutt_accounts }}"
 irssi_config: "{{ vault_irssi_config }}"
 
 irssi_irc_accounts: "{{ vault_irssi_irc_accounts }}"
+
+redshift_lat: "{{ vault_redshift_lat }}"
+redshift_lon: "{{ vault_redshift_lon }}"

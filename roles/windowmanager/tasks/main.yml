@@ -160,6 +160,3 @@
     dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml"
   vars:
     alacrittyBase16Colors: "{{ alacrittyColorBase64['content'] | b64decode }}"
-
-- name: Install and configure redshift
-  import_tasks: redshift.yml

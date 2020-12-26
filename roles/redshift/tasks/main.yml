@@ -3,7 +3,7 @@
   pacman:
     name: redshift
     state: present
-  become: true
+  become: yes
 
 - name: Create redshift config folder
   file:
@@ -11,16 +11,20 @@
     recurse: yes
     state: directory
 
-- name: Configure redshift
+- name: Add redshift config
   template:
-    src: redshift.conf.j2
     dest: "{{ ansible_env.HOME }}/.config/redshift/redshift.conf"
+    src: redshift.conf.j2
 
-- name: Enable and start redshift
+- name: Add xrandr env vars for redshift
+  copy:
+    dest: "{{ ansible_env.HOME }}/.config/systemd/user/default.target.wants/redshift.service.d/10-xenv.conf"
+    src: xenv.conf
+
+- name: Install redshift service
   systemd:
     name: redshift
+    daemon_reload: yes
     state: started
-    enabled: yes
     scope: user
-  environment:
-    XDG_RUNTIME_DIR: /run/user/1000
+    enabled: yes
