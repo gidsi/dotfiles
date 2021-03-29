@@ -28,6 +28,7 @@
       - deadd-notification-center-bin
       - autorandr
   become_user: aur_builder
+  become_method: sudo
   become: true
 
 - name: Create screenshot folder

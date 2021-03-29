@@ -1,9 +1,6 @@
-- name: Collecting Facts
-  hosts: desktop
-  gather_facts: yes
-
 - name: Set up local environment
   hosts: desktop
+  connection: local
   roles:
     - base
     - git

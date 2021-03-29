@@ -14,3 +14,4 @@
       - whois
       - cyrus-sasl-gssapi
     state: present
+    update_cache: yes
