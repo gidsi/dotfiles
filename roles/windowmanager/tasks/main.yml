@@ -22,7 +22,7 @@
       - i3-gaps
       - unclutter-xfixes-git
       - powerline-fonts-git
-      - clipster-git
+      - rofi-greenclip
       - wpa_actiond
       - google-chrome-dev
       - deadd-notification-center-bin
@@ -161,3 +161,16 @@
     dest: "{{ ansible_env.HOME }}/.config/alacritty/alacritty.yml"
   vars:
     alacrittyBase16Colors: "{{ alacrittyColorBase64['content'] | b64decode }}"
+
+- name: Configure greenclip
+  copy:
+    src: greenclip.cfg
+    dest: "{{ ansible_env.HOME }}/.config/greenclip.cfg"
+
+- name: Install greenclip service
+  systemd:
+    name: greenclip
+    daemon_reload: yes
+    state: started
+    scope: user
+    enabled: yes

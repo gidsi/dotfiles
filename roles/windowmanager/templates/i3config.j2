@@ -18,7 +18,7 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+Shift+q kill
 
 # start rofi (program launcher)
-bindsym $mod+d exec rofi -theme base16-{{ theme }} -font "hack 8" -lines 40 -location 2 -combi-modi run#ssh#pass:rofi-gopass -show combi -modi combi
+bindsym $mod+d exec rofi -theme base16-{{ theme }} -font "hack 8" -lines 40 -location 2 -combi-modi "clip:greenclip print#run#ssh#pass:rofi-gopass" -show combi -modi combi
 
 # change focus
 bindsym $mod+j focus left
@@ -173,8 +173,6 @@ bindsym XF86MonBrightnessUp exec brightness
 bindsym $mod+End exec {{ ansible_env.HOME }}/.config/i3/screenlock/screenlock.sh picture
 bindsym $mod+Shift+End exec systemctl suspend
 
-bindsym $mod+c exec clipster -sp
-
 bindsym $mod+n exec kill -s USR1 $(pidof deadd-notification-center)
 
 bindsym --release $mod+Print exec scrot ~/screenshots/%Y-%m-%d-%T.png -u
@@ -184,7 +182,6 @@ exec --no-startup-id xrdb -merge ~/.Xresources
 exec --no-startup-id compton
 exec --no-startup-id feh --bg-fill --no-xinerama {{ ansible_env.HOME }}/.config/i3/screenlock/pictures/wide/colors-2.png
 exec --no-startup-id unclutter
-exec --no-startup-id clipster -d
 exec --no-startup-id deadd-notification-center
 exec --no-startup-id xss-lock -- {{ ansible_env.HOME }}/.config/i3/screenlock/screenlock.sh picture &
 
