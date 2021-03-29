@@ -20,6 +20,7 @@
   aur:
     name:
       - i3-gaps
+      - py3status-git
       - unclutter-xfixes-git
       - powerline-fonts-git
       - rofi-greenclip
@@ -71,12 +72,6 @@
     i3BaseColor: "{{ i3BaseColorBase64['content'] | b64decode }}"
   tags:
     - "theme"
-
-- name: Install Py3status
-  aur:
-    name: py3status-git
-  become_user: aur_builder
-  become: yes
 
 - name: Create i3status
   template:
