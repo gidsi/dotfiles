@@ -16,6 +16,12 @@
     dest: "{{ ansible_env.HOME }}/.config/redshift/redshift.conf"
     src: redshift.conf.j2
 
+- name: Create redshift systemd d folder
+  file:
+    path: "{{ ansible_env.HOME }}/.config/systemd/user/default.target.wants/redshift.service.d"
+    state: directory
+    recurse: yes
+
 - name: Add xrandr env vars for redshift
   copy:
     dest: "{{ ansible_env.HOME }}/.config/systemd/user/default.target.wants/redshift.service.d/10-xenv.conf"

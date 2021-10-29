@@ -9,6 +9,13 @@
       - keychain
     state: present
 
+- name: Install direnv
+  aur:
+    name: direnv
+  become_user: aur_builder
+  become_method: sudo
+  become: yes
+
 - name: Set theme
   copy:
     src: "{{ ansible_env.HOME }}/.base16colors/templates/shell/scripts/base16-{{ theme }}.sh"

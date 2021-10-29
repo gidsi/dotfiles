@@ -1,9 +1,12 @@
 echo "Updating local dev environment..."
 cd ~/.dotfiles
+
 ansible-galaxy collection install community.general
+
 git stash
 git pull origin master
 git stash pop
+
 ansible-playbook \
     -l $(hostname) \
     -i ~/.dotfiles/desktops \
@@ -11,3 +14,4 @@ ansible-playbook \
     --ask-become-pass \
     ~/.dotfiles/local_env.yml \
     $@
+

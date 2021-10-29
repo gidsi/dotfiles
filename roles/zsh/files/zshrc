@@ -40,3 +40,5 @@ if [ -f /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
 s_whichhostgroup() {
     ldapsearch "(nisNetgroupTriple=\($1*)" nisNetgroupTriple 2>>/dev/null | grep "dn: "
 }
+
+eval "$(direnv hook zsh)"
