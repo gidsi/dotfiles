@@ -159,8 +159,8 @@
 
 - name: Configure greenclip
   copy:
-    src: greenclip.cfg
-    dest: "{{ ansible_env.HOME }}/.config/greenclip.cfg"
+    src: greenclip.toml
+    dest: "{{ ansible_env.HOME }}/.config/greenclip.toml"
 
 - name: Install greenclip service
   systemd:
