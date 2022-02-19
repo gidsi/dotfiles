@@ -7,7 +7,7 @@
     - ssh_client
     - package_manager
     - google-cloud
-    - { role: zsh, tags: [ "theme" ] }
+    - { role: zsh, tags: [ "theme", "shell" ] }
     - { role: windowmanager, tags: [ "theme" ] }
     - redshift
     - filemanager

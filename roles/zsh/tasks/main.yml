@@ -16,10 +16,10 @@
   become_method: sudo
   become: yes
 
-- name: Set theme
+- name: Set color theme
   copy:
     src: "{{ ansible_env.HOME }}/.base16colors/templates/shell/scripts/base16-{{ theme }}.sh"
-    dest: "{{ ansible_env.HOME }}/.zsh_theme.sh"
+    dest: "{{ ansible_env.HOME }}/.zsh_color_theme.sh"
     remote_src: yes
     mode: "755"
   tags:

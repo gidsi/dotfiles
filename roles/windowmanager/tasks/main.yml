@@ -83,11 +83,6 @@
     src: dircolors
     dest: "{{ ansible_env.HOME }}/.dircolors"
 
-- name: Link Xresources
-  copy:
-    src: Xresources
-    dest: "{{ ansible_env.HOME }}/.Xresources"
-
 - name: Link zlogin
   copy:
     src: zlogin
