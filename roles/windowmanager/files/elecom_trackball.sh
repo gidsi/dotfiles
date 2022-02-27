@@ -1,5 +1,5 @@
 #!/bin/sh
-POINTER="HID 056e:0131 Mouse"
+POINTER="pointer:HID 056e:0132"
 #POINTER="ELECOM TrackBall Mouse DEFT Pro TrackBall Mouse"
 
 TRACKBALL_ID=$(xinput --list --id-only "$POINTER")
