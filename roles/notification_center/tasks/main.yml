@@ -1,0 +1,30 @@
+---
+- name: Install deadd from from aur
+  aur:
+    name:
+      - deadd-notification-center-bin
+  become_user: aur_builder
+  become_method: sudo
+  become: true
+
+- name: Ensure there is a deadd config folder
+  file:
+    path: "{{ ansible_env.HOME }}/.config/deadd"
+    recurse: yes
+
+- name: Link deadd config
+  copy:
+    src: deadd.conf
+    dest: "{{ ansible_env.HOME }}/.config/deadd/deadd.conf"
+
+- name: Install notify2 for notify-send.py
+  pip:
+    name:
+      - notify2
+      - notify-send.py
+  become: true
+
+- name: Copy i3 config
+  copy:
+    src: i3-deadd.conf
+    dest: "{{ ansible_env.HOME }}/.config/i3/config.d/deadd.conf"

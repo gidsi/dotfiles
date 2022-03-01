@@ -1,9 +1,16 @@
 # {{ ansible_managed }}
 
+# vars
 set $mod Mod4
+set $font pango:Roboto Mono for Powerline, FontAwesome, 8
+
+# include
+include ~/.config/i3/config.d/*.conf
 
 # font
-font pango:Roboto Mono for Powerline, FontAwesome, 8
+font $font
+
+{{ i3BaseColor }}
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -19,38 +26,6 @@ bindsym $mod+Shift+q kill
 
 # start rofi (program launcher)
 bindsym $mod+d exec rofi -theme base16-{{ theme }} -font "hack 8" -lines 40 -location 2 -combi-modi "clip:greenclip print#run#ssh#pass:rofi-gopass" -show combi -modi combi
-
-# change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-bindsym $mod+Mod3+Left focus left
-bindsym $mod+Mod3+Down focus down
-bindsym $mod+Mod3+Up focus up
-bindsym $mod+Mod3+Right focus right
-
-# move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
-
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-bindsym $mod+Mod3+Shift+Left move left
-bindsym $mod+Mod3+Shift+Down move down
-bindsym $mod+Mod3+Shift+Up move up
-bindsym $mod+Mod3+Shift+Right move right
 
 # split in horizontal orientation
 bindsym $mod+h split h
@@ -78,129 +53,10 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-# switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
-bindsym $mod+6 workspace 6
-bindsym $mod+7 workspace 7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
-
-# switch to workspace
-bindsym $mod+Mod3+1 workspace 1
-bindsym $mod+Mod3+2 workspace 2
-bindsym $mod+Mod3+3 workspace 3
-bindsym $mod+Mod3+4 workspace 4
-bindsym $mod+Mod3+5 workspace 5
-bindsym $mod+Mod3+6 workspace 6
-bindsym $mod+Mod3+7 workspace 7
-bindsym $mod+Mod3+8 workspace 8
-bindsym $mod+Mod3+9 workspace 9
-bindsym $mod+Mod3+0 workspace 10
-
-# move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
-
-# move focused container to workspace
-bindsym $mod+Mod3+Shift+1 move container to workspace 1
-bindsym $mod+Mod3+Shift+2 move container to workspace 2
-bindsym $mod+Mod3+Shift+3 move container to workspace 3
-bindsym $mod+Mod3+Shift+4 move container to workspace 4
-bindsym $mod+Mod3+Shift+5 move container to workspace 5
-bindsym $mod+Mod3+Shift+6 move container to workspace 6
-bindsym $mod+Mod3+Shift+7 move container to workspace 7
-bindsym $mod+Mod3+Shift+8 move container to workspace 8
-bindsym $mod+Mod3+Shift+9 move container to workspace 9
-bindsym $mod+Mod3+Shift+0 move container to workspace 10
-
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Mod3+Left resize shrink width 10 px or 10 ppt
-        bindsym Mod3+Down resize grow height 10 px or 10 ppt
-        bindsym Mod3+Up resize shrink height 10 px or 10 ppt
-        bindsym Mod3+Right resize grow width 10 px or 10 ppt
-
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-
-bindsym $mod+r mode "resize"
-
-# set $base00 #1e0528
-# set $base01 #1A092D
-# set $base02 #331354
-# set $base03 #320f55
-# set $base04 #873582
-# set $base05 #ffeeff
-# set $base06 #ffeeff
-# set $base07 #f8c0ff
-# set $base08 #00d9e9
-# set $base09 #aa00a3
-# set $base0A #955ae7
-# set $base0B #05cb0d
-# set $base0C #b900b1
-# set $base0D #550068
-# set $base0E #8991bb
-# set $base0F #4d6fff
-
-{{ i3BaseColor }}
-
-# Property Name         Border  BG      Text    Indicator Child Border
-client.focused          $base05 $base0D $base00 $base0D $base0C
-client.focused_inactive $base01 $base01 $base05 $base03 $base01
-client.unfocused        $base01 $base00 $base05 $base01 $base01
-client.urgent           $base08 $base08 $base00 $base08 $base08
-client.placeholder      $base00 $base00 $base05 $base00 $base00
-client.background       $base07
-
-bar {
-        status_command py3status
-        modifier $mod
-
-        colors {
-            background $base00
-            separator  $base01
-            statusline $base04
-
-            # State             Border  BG      Text
-            focused_workspace   $base05 $base0D $base00
-            active_workspace    $base05 $base03 $base00
-            inactive_workspace  $base03 $base01 $base05
-            urgent_workspace    $base08 $base08 $base00
-            binding_mode        $base00 $base0A $base00
-        }
-}
 
 bindsym XF86AudioLowerVolume exec volume -
 bindsym XF86AudioRaiseVolume exec volume
@@ -211,8 +67,6 @@ bindsym XF86MonBrightnessUp exec brightness
 bindsym $mod+End exec {{ ansible_env.HOME }}/.config/i3/screenlock/screenlock.sh picture
 bindsym $mod+Shift+End exec systemctl suspend
 
-bindsym $mod+n exec kill -s USR1 $(pidof deadd-notification-center)
-
 bindsym --release $mod+Print exec scrot ~/screenshots/%Y-%m-%d-%T.png -u
 bindsym --release $mod+Shift+Print exec scrot ~/screenshots/%Y-%m-%d-%T.png
 
@@ -220,13 +74,9 @@ exec --no-startup-id xrdb -merge ~/.Xresources
 exec --no-startup-id compton
 exec --no-startup-id feh --bg-fill --no-xinerama {{ ansible_env.HOME }}/.config/i3/screenlock/pictures/wide/colors-2.png
 exec --no-startup-id unclutter
-exec --no-startup-id deadd-notification-center
 exec --no-startup-id xss-lock -- {{ ansible_env.HOME }}/.config/i3/screenlock/screenlock.sh picture &
+exec --no-startup-id /etc/X11/xinit/xinitrc.d/50-systemd-user.sh
 
 {% if keyboard_layout is defined %}
 exec --no-startup-id setxkbmap {{ keyboard_layout }} -option compose:caps
 {% endif %}
-
-for_window [class=".*"] border pixel 0
-gaps inner 5
-gaps outer 2

@@ -9,9 +9,8 @@ git stash pop
 
 ansible-playbook \
     -l $(hostname) \
-    -i ~/.dotfiles/desktops \
+    -i ~/.dotfiles/inventory \
     --skip-tags "bootstrap" \
     --ask-become-pass \
     ~/.dotfiles/local_env.yml \
     $@
-

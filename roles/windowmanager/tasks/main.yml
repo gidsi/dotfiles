@@ -2,6 +2,7 @@
   pacman:
     name:
       - i3lock
+      - py3status
       - imagemagick
       - rofi
       - i3status
@@ -20,13 +21,11 @@
   aur:
     name:
       - i3-gaps
-      - py3status-git
       - unclutter-xfixes-git
       - powerline-fonts-git
       - rofi-greenclip
       - wpa_actiond
       - google-chrome-dev
-      - deadd-notification-center-bin
       - autorandr
   become_user: aur_builder
   become_method: sudo
@@ -36,6 +35,7 @@
   file:
     path: "{{ ansible_env.HOME }}/screenshots"
     state: directory
+    mode: 0700
 
 - name: Ensure there is a ~/.config/rofi folder
   file:
@@ -48,11 +48,14 @@
     dest: "{{ ansible_env.HOME }}/.config/rofi/base16-{{ theme }}.rasi"
     remote_src: yes
 
-- name: Ensure there is a ~/.config/i3 folder
+- name: Ensure there is a ~/.config/i3 and a config.d folder
   file:
-    path: "{{ ansible_env.HOME }}/.config/i3"
+    path: "{{ ansible_env.HOME }}/.config/i3/config.d"
     state: directory
     recurse: yes
+    mode: 0700
+  tags:
+    - "i3config"
 
 - name: Copy background and screenlock
   copy:
@@ -63,6 +66,8 @@
   slurp:
     src: "{{ ansible_env.HOME }}/.base16colors/templates/i3/colors/base16-{{ theme }}.config"
   register: i3BaseColorBase64
+  tags:
+    - "i3config"
 
 - name: Copy i3 config
   template:
@@ -72,11 +77,29 @@
     i3BaseColor: "{{ i3BaseColorBase64['content'] | b64decode }}"
   tags:
     - "theme"
+    - "i3config"
+
+- name: Copy i3 config.d stuff
+  template:
+    src: "i3config/{{ item }}.j2"
+    dest: "{{ ansible_env.HOME }}/.config/i3/config.d/{{ item }}"
+  with_items:
+    - "bar.conf"
+    - "colors.conf"
+    - "i3gap.conf"
+    - "navigation.conf"
+    - "resize.conf"
+  vars:
+    i3BaseColor: "{{ i3BaseColorBase64['content'] | b64decode }}"
+  tags:
+    - "i3config"
 
 - name: Create i3status
   template:
     src: i3status.j2
     dest: "{{ ansible_env.HOME }}/.i3status.conf"
+  tags:
+    - i3status
 
 - name: Link dircolors
   copy:
@@ -105,23 +128,6 @@
     src: volume
     dest: "/usr/local/bin/volume"
     mode: 0755
-  become: true
-
-- name: Ensure there is a deadd config folder
-  file:
-    path: "{{ ansible_env.HOME }}/.config/deadd"
-    recurse: yes
-
-- name: Link deadd config
-  copy:
-    src: deadd.conf
-    dest: "{{ ansible_env.HOME }}/.config/deadd/deadd.conf"
-
-- name: Install notify2 for notify-send.py
-  pip:
-    name:
-     - notify2
-     - notify-send.py
   become: true
 
 - name: Enable wireless auto
