@@ -1,16 +1,22 @@
 #!/bin/bash
-
-RESOLUTION=$(xrandr -q | awk -F'current' -F',' 'NR==1 {gsub("( |current)","");print $2}')
-RES_MAX=$(expr match ${RESOLUTION} '\(.[0-9]*\)')
+set -xe
 
 PICTURE_PATH=~/.config/i3/screenlock/pictures
-if [[ "$RES_MAX" -gt 1920 ]]; then
+
+RESOLUTION=$(xrandr -q | awk -F'current' -F',' 'NR==1 {gsub("( |current)","");print $2}')
+
+RES_MAX_X="${RESOLUTION%%x*}"
+RES_MAX_Y="${RESOLUTION##*x}"
+
+ASPECT_RATIO=$(echo "scale=2; $RES_MAX_X / $RES_MAX_Y" | bc)
+WIDE_SCREEN_THRESHOLD=1.7
+
+if (( $(echo "$ASPECT_RATIO > $WIDE_SCREEN_THRESHOLD" | bc -l) )); then
     PICTURE_PATH="$PICTURE_PATH/wide"
 else
     PICTURE_PATH="$PICTURE_PATH/normal"
 fi
-
-RANDOM_IMAGE=${PICTURE_PATH}/$(find ${PICTURE_PATH} | shuf -n 1)
+RANDOM_IMAGE=$(find ${PICTURE_PATH} | shuf -n 1)
 
 screencapturelock() {
   cd /tmp || exit 1
@@ -25,7 +31,7 @@ screencapturelock() {
 resizepicturelock() {
   mkdir -p /tmp/screenlock
   cd /tmp/screenlock || exit 1
-  convert "${RANDOM_IMAGE}" -resize "${RES_MAX}x${RES_MAX}" -gravity Center -crop "${RESOLUTION}" +repage lock.png
+  convert "${RANDOM_IMAGE}" -resize "${RESOLUTION}^" -gravity Center -crop "${RESOLUTION}" +repage lock.png
   if [ -a lock-1.png ]; then
       mv lock-0.png lock.png
   fi
@@ -41,7 +47,7 @@ case "$1" in
     resizepicturelock
     ;;
   *)
-    i3lock -uef -i "${PICTURE_PATH}/$(find ${PICTURE_PATH} | shuf -n 1)"
+    i3lock -uef -i "$(find ${PICTURE_PATH} | shuf -n 1)"
 esac
 
 exit 0

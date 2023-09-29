@@ -10,6 +10,7 @@
       - openssh
       - p7zip
       - python-pip
+      - python-pipx
       - the_silver_searcher
       - whois
       - cyrus-sasl-gssapi

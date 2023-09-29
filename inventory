@@ -4,6 +4,7 @@ scraps
 betelgeuse
 hengst
 sweeney
+ed
 
 [desktop:vars]
 ansible_connection=local

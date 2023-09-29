@@ -1,0 +1,5 @@
+wlan_device: "wlan0"
+batteries: [ '/sys/class/power_supply/BAT0/uevent' ]
+aur_installed: true
+
+theme: "rebecca"

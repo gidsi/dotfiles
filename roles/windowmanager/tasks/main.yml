@@ -6,7 +6,6 @@
       - imagemagick
       - rofi
       - i3status
-      - compton
       - feh
       - scrot
       - ttf-font-awesome
@@ -14,6 +13,7 @@
       - acpilight
       - alacritty
       - xss-lock
+      - picom
     state: present
   become: true
 
@@ -140,6 +140,7 @@
   copy:
     src: "rofi-gopass"
     dest: "/usr/local/bin"
+  become: true
 
 - name: Ensure there is a ~/.config/alacritty folder
   file:

@@ -7,6 +7,11 @@
   become_method: sudo
   become: true
 
+- name: Install dependencies
+  pacman:
+    name: python-notify2
+  become: true
+
 - name: Ensure there is a deadd config folder
   file:
     path: "{{ ansible_env.HOME }}/.config/deadd"
@@ -18,11 +23,10 @@
     dest: "{{ ansible_env.HOME }}/.config/deadd/deadd.conf"
 
 - name: Install notify2 for notify-send.py
-  pip:
-    name:
-      - notify2
-      - notify-send.py
+  community.general.pipx:
+    name: notify-send.py
   become: true
+  
 
 - name: Copy i3 config
   copy:
