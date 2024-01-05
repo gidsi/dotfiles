@@ -171,3 +171,8 @@
     state: started
     scope: user
     enabled: yes
+
+- name: Configure gpg pinentry
+  copy:
+    src: gpg-agent.conf
+    dest: "{{ ansible_env.HOME }}/.gnupg/gpg-agent.conf"
